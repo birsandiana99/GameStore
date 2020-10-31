@@ -47,4 +47,15 @@ public class UserController {
         logger.trace("saveUser - UserController -> user added, addedUser = {}", addedUser);
         return userConverter.convertModelToDto(addedUser);
     }
+
+    @RequestMapping(value = "/user/checkUser", method = RequestMethod.POST)
+    UserDTO checkUser(@RequestBody String[] args){
+        String username = args[0];
+        String password = args[1];
+        Optional<GSUser> cmsUser = userService.getUserByUsername(username);
+        if(cmsUser.isPresent() && cmsUser.get().getPassword().equals(password)){
+            return userConverter.convertModelToDto(cmsUser.get());
+        }
+        return null;
+    }
 }
