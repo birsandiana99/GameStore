@@ -1,0 +1,59 @@
+<div class="basic-container">
+  <h1>Register</h1>
+  <form (ngSubmit)="onSubmit()" #register="ngForm">
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter name</mat-label>
+        <input matInput placeholder="John Doe" [formControl]="name" required>
+        <mat-error *ngIf="name.hasError('required')">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter e-mail</mat-label>
+        <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="ex@example.com" required>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          E-mail is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter username</mat-label>
+        <input matInput placeholder="User" [formControl]="username" required>
+        <mat-error *ngIf="username.hasError('required')">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter password</mat-label>
+        <label>
+          <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+        </label>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.hasError('required')">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter age</mat-label>
+        <input matInput placeholder="18" [formControl]="age" type="number" min="12" max="99" required>
+        <mat-error *ngIf="age.hasError('required')">
+          Age is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <button type="submit" mat-raised-button color="primary">Register</button>
+  </form>
+</div>

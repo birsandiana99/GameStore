@@ -1,0 +1,13 @@
+.basic-container {
+  padding: 30px;
+  text-align: center;
+}
+
+.basic-container>h1 {
+  text-align: center;
+}
+
+.example-container>mat-form-field {
+  width: 236px;
+  padding-bottom: 10px;
+}
