@@ -1,0 +1,47 @@
+.menu{
+  /*position: absolute;*/
+  top: 0;
+  height: 50px;
+  width: 100%;
+  background-color: lightgray;
+  margin:0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+div{ margin: 0;}
+.logoFull{
+  height: 80px;
+  margin-top:20px;
+}
+.menuItems{
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+}
+.menuItems a{
+
+  text-decoration: none;
+  margin: 5px 0px;
+  padding: 12px 32px;
+  border-left: 1px solid;
+  color: blue;
+  height: 100%;
+
+}
+.menuItems p{
+
+  text-decoration: none;
+  margin: 5px 0px;
+  padding: 12px 32px;
+  color: blue;
+  height: 100%;
+  font-size: small;
+
+}
+.container {
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
+}

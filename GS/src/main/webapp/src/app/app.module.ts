@@ -11,12 +11,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import {LoginComponent} from "./login/login.component";
+import { MenuComponent } from './menu/menu.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    MenuComponent,
+    MainPageComponent
   ],
     imports: [
         BrowserModule,
