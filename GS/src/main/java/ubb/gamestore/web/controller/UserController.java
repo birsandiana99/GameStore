@@ -34,7 +34,7 @@ public class UserController {
         return userConverter.convertModelsToDtos(users);
     }
 
-    @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public UserDTO saveUser(@RequestBody UserDTO userDTO){
         logger.trace("saveUser - UserController -> method entered, userDTO = {}", userDTO);
         Optional<GSUser> user1 = userService.getUserByUsername(userDTO.getUsername());
@@ -48,13 +48,15 @@ public class UserController {
         return userConverter.convertModelToDto(addedUser);
     }
 
-    @RequestMapping(value = "/user/checkUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     UserDTO checkUser(@RequestBody String[] args){
         String username = args[0];
         String password = args[1];
-        Optional<GSUser> cmsUser = userService.getUserByUsername(username);
-        if(cmsUser.isPresent() && cmsUser.get().getPassword().equals(password)){
-            return userConverter.convertModelToDto(cmsUser.get());
+        logger.trace("checkUser - UserController -> method entered, username = {}, password = {}", username, password);
+        Optional<GSUser> gsUser = userService.getUserByUsername(username);
+        if(gsUser.isPresent() && gsUser.get().getPassword().equals(password)){
+            logger.trace("checkUser - UserController -> method entered, user = {}", gsUser);
+            return userConverter.convertModelToDto(gsUser.get());
         }
         return null;
     }

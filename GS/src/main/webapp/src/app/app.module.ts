@@ -13,6 +13,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import {LoginComponent} from "./login/login.component";
 import { MenuComponent } from './menu/menu.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import {AccountService} from "./shared/account.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -31,9 +33,10 @@ import { MainPageComponent } from './main-page/main-page.component';
         MatIconModule,
         MatButtonModule,
         MatDividerModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        HttpClientModule,
     ],
-  providers: [],
+  providers: [AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
