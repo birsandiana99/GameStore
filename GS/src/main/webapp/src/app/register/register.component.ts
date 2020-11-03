@@ -18,7 +18,6 @@ export class RegisterComponent implements OnInit {
 
   constructor() { }
   name = new FormControl('', [Validators.required]);
-  email = new FormControl('', [Validators.required]);
   username = new FormControl('', [Validators.required]);
   password = new FormControl('', [Validators.required]);
   age = new FormControl('', [Validators.required]);
@@ -35,6 +34,5 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-
   }
 }
