@@ -1,0 +1,36 @@
+<div class="basic-container">
+
+  <h1>Log in</h1>
+
+  <form (ngSubmit)="onSubmit()" #login="ngForm">
+
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Username </mat-label>
+        <input matInput [formControl]="username" required>
+        <mat-error *ngIf="username.hasError('required')">
+          Username is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Password </mat-label>
+        <label>
+          <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
+        </label>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.hasError('required')">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <button type="submit" mat-raised-button color="primary">Log in</button>
+
+
+  </form>
+</div>
