@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -20,6 +21,6 @@ public class GSUser extends BaseEntity<Long>{
     private String email;
     @Column(length = 20)
     private String name;
-    private Integer age;
+    private Date dateOfBirth;
     private Boolean isAdmin;
 }
