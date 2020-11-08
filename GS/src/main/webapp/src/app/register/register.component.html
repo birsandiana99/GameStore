@@ -48,8 +48,8 @@
     <div class="example-container">
       <mat-form-field appearance="fill">
         <mat-label>Enter age</mat-label>
-        <input matInput placeholder="18" [formControl]="age" type="date" required>
-        <mat-error *ngIf="age.hasError('required')">
+        <input matInput placeholder="18" [formControl]="dateOfBirth" type="date" required>
+        <mat-error *ngIf="dateOfBirth.hasError('required')">
           Age is required
         </mat-error>
       </mat-form-field>

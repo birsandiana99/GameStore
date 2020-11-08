@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from "../shared/user.model";
+import {AccountService} from "../shared/account.service";
 
 @Component({
   selector: 'app-menu',
@@ -9,14 +10,14 @@ import {User} from "../shared/user.model";
 export class MenuComponent implements OnInit {
 
   user: User;
-  constructor() { }
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('user'));
   }
 
   logout() {
-    sessionStorage.clear();
+    this.accountService.logout();
     this.ngOnInit();
   }
 }

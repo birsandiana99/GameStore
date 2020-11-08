@@ -35,12 +35,12 @@ export class AccountService {
       }));
   }
 
-  // logout() {
-  //   // remove user from local storage and set current user to null
-  //   localStorage.removeItem('user');
-  //   this.userSubject.next(null);
-  //   this.router.navigate(['/login']);
-  // }
+   logout() {
+     // remove user from local storage and set current user to null
+     sessionStorage.removeItem("user");
+     this.userSubject.next(null);
+     this.router.navigate(['']);
+  }
 
   register(user: User) {
     return this.http.post(this.userUrl + '/register', user);
