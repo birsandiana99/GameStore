@@ -19,7 +19,7 @@ public class Product extends BaseEntity<Long> {
     private String description;
     @Column(length = 20)
     private int price;
-    @Column(columnDefinition = "BLOB NULL")
+    @Column()
     @Lob()
     private byte[] image;
 }
