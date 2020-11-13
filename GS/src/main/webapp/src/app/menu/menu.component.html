@@ -3,6 +3,7 @@
     <p *ngIf="user"> Logged as {{user.name}}</p>
     <a routerLink="register" *ngIf="user === null">Register</a>
     <a routerLink="login" *ngIf="user === null">Login</a>
+    <a routerLink="search">Search</a>
     <a routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>
   </div>
 </div>

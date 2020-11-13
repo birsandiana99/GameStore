@@ -20,6 +20,6 @@ public class Product extends BaseEntity<Long> {
     @Column(length = 20)
     private int price;
     @Column()
-    @Lob()
+    //@Lob()
     private byte[] image;
 }

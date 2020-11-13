@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
-import {AccountService} from "../shared/account.service";
-import {User} from "../shared/user.model";
-import {Router} from "@angular/router";
-import {MenuComponent} from "../menu/menu.component";
+import {AccountService} from '../shared/account.service';
+import {User} from '../shared/user.model';
+import {Router} from '@angular/router';
+import {MenuComponent} from '../menu/menu.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -34,19 +34,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.login(this.username.value, this.password.value)
+    this.login(this.username.value, this.password.value);
   }
 
-  login(username: string, password: string):void {
-    console.log(username)
+  login(username: string, password: string): void {
+    console.log(username);
     this.accountService.login(username, password)
       .subscribe(result => {
         this.user = result;
-        if(this.user === null){
-          alert("Invalid username or password!");
+        if (this.user === null){
+          alert('Invalid username or password!');
         }
         this.menuComponent.ngOnInit();
-        this.router.navigate([''])
+        this.router.navigate(['']);
 
       });
   }

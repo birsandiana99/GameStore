@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import {User} from "./user.model";
+import {User} from './user.model';
 
 
 @Injectable({ providedIn: 'root' })
@@ -37,7 +37,7 @@ export class AccountService {
 
    logout() {
      // remove user from local storage and set current user to null
-     sessionStorage.removeItem("user");
+     sessionStorage.removeItem('user');
      this.userSubject.next(null);
      this.router.navigate(['']);
   }

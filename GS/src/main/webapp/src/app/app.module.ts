@@ -10,11 +10,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-import {LoginComponent} from "./login/login.component";
+import {LoginComponent} from './login/login.component';
+import {SearchComponent} from './search/search.component';
 import { MenuComponent } from './menu/menu.component';
 import { MainPageComponent } from './main-page/main-page.component';
-import {AccountService} from "./shared/account.service";
-import {HttpClientModule} from "@angular/common/http";
+import {AccountService} from './shared/account.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {HttpClientModule} from "@angular/common/http";
     RegisterComponent,
     LoginComponent,
     MenuComponent,
-    MainPageComponent
+    MainPageComponent,
+    SearchComponent
   ],
     imports: [
         BrowserModule,
