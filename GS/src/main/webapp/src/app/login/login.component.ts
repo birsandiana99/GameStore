@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
         }
         this.menuComponent.ngOnInit();
         this.router.navigate(['']);
-
       });
   }
 }

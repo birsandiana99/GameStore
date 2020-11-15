@@ -41,7 +41,32 @@ div{ margin: 0;}
 
 }
 .container {
-  margin-left: 10%;
-  margin-right: 10%;
-  width: 80%;
+  /*margin-left: 10%;*/
+  /*margin-right: 10%;*/
+  /*width: 80%;*/
 }
+
+.wishlist{
+  margin-left: 15% !important;
+}
+
+.cart{
+  margin-left: 2% !important;
+}
+
+.login{
+  margin-left: auto !important;
+}
+
+.search-form{
+  margin-left: 17%;
+}
+
+.toolbar{
+  height: 80px;
+}
+
+.input-container {
+  width: 450px !important;
+}
+

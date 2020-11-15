@@ -1,12 +1,51 @@
-<div class="menu">
-  <div class="menuItems">
-    <p *ngIf="user"> Logged as {{user.name}}</p>
-    <a routerLink="register" *ngIf="user === null">Register</a>
-    <a routerLink="login" *ngIf="user === null">Login</a>
-    <a routerLink="search">Search</a>
-    <a routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>
-  </div>
-</div>
+<mat-toolbar class="toolbar" color="primary">
+  <span class="fill-remaining-space">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <button mat-menu-item>
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>people_outline</mat-icon>
+        <span>Connecting</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>videocam</mat-icon>
+        <span>Let's talk</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </span>
+  <span class="fill-remaining-space gamestore">Game Store</span>
+    <form class="search-form">
+      <mat-form-field class="input-container">
+        <mat-label>Search</mat-label>
+        <input type="text"
+               aria-label="Number"
+               matInput
+               [formControl]="myControl"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+  <span class="logged-user" *ngIf="user">Logged as {{user.name}}</span>
+  <span class="fill-remaining-space wishlist">Wishlist</span>
+  <span class="fill-remaining-space cart">Cart</span>
+  <a routerLink="register" *ngIf="user === null">Register</a>
+  <a routerLink="login" *ngIf="user === null">Login</a>
+  <a routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>
+</mat-toolbar>
+
 <div class="container">
   <router-outlet></router-outlet>
 </div>

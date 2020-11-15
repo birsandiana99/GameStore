@@ -16,6 +16,12 @@ import { MenuComponent } from './menu/menu.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import {AccountService} from './shared/account.service';
 import {HttpClientModule} from '@angular/common/http';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ProductCardComponent } from './product-card/product-card.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -24,20 +30,26 @@ import {HttpClientModule} from '@angular/common/http';
     LoginComponent,
     MenuComponent,
     MainPageComponent,
-    SearchComponent
+    SearchComponent,
+    ProductCardComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        MatInputModule,
-        MatIconModule,
-        MatButtonModule,
-        MatDividerModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDividerModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatSliderModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatAutocompleteModule,
+    MatCardModule,
+  ],
   providers: [AccountService],
   bootstrap: [AppComponent]
 })
