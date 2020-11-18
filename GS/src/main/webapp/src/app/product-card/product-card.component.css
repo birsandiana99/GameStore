@@ -1,0 +1,35 @@
+.product-card-image{
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+  margin: 20px !important;
+  height: 116px !important;
+  width: auto;
+}
+
+.product-card-general{
+  width: 250px !important;
+  height: auto !important;
+  box-shadow: none !important;
+  border-radius: 5px;
+}
+
+.product-card-general:hover{
+  background-color: #dde8ed;
+}
+
+
+.product-name, mat-card-content>p.product-price, .buy-product{
+  margin-bottom: 15px !important;
+  text-align: -webkit-center;
+  font-size: 15px;
+}
+
+.product-name {
+  font-size: 25px;
+}
+
+.buyParent {
+  display: flex;
+  flex-direction: column;
+}
+
