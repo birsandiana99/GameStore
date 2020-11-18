@@ -1,6 +1,5 @@
 <ul>
-  <div *ngFor="let prod of products" class="product{{prod.id}}">
+  <div  *ngFor="let prod of products" class="product{{prod.id}}">
     <app-product-card [product]="prod"></app-product-card>
-
   </div>
 </ul>

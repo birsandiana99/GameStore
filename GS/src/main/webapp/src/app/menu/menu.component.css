@@ -47,19 +47,15 @@ div{ margin: 0;}
 }
 
 .wishlist{
-  margin-left: 15% !important;
+  margin-left: 12% !important;
 }
 
 .cart{
-  margin-left: 2% !important;
-}
-
-.login{
-  margin-left: auto !important;
+  margin-left: 4% !important;
 }
 
 .search-form{
-  margin-left: 17%;
+  margin-left: 8%;
 }
 
 .toolbar{
@@ -68,5 +64,21 @@ div{ margin: 0;}
 
 .input-container {
   width: 450px !important;
+}
+
+.hello {
+  margin-left: 3%;
+}
+
+.login {
+  margin-left: 3%;
+}
+
+.logout {
+  margin-left: 3%;
+ }
+
+.searchBtn {
+  background-color: transparent;
 }
 

@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent},
-  {path: 'search', component: SearchComponent}
+  {path: 'search', component: SearchComponent},
+  {path: 'main-page', component: MainPageComponent}
 
 ];
 

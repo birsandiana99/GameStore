@@ -22,7 +22,8 @@
       </button>
     </mat-menu>
   </span>
-  <span class="fill-remaining-space gamestore">Game Store</span>
+  <span class="fill-remaining-space gamestore" routerLink="main-page" >Game Store</span>
+  <div class="hello" *ngIf="user">Hello {{user.name}}!</div>
     <form class="search-form">
       <mat-form-field class="input-container">
         <mat-label>Search</mat-label>
@@ -32,18 +33,19 @@
                [formControl]="myControl"
                [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
+          <mat-option *ngFor="let prod of filteredOptions | async" [value]="prod.name">
+            {{prod.name + ": " + prod.price + "$"}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+      <button mat-button class="searchBtn">
+        <mat-icon aria-hidden="false" aria-label="searchIcon">search</mat-icon>
+      </button>
     </form>
-  <span class="logged-user" *ngIf="user">Logged as {{user.name}}</span>
   <span class="fill-remaining-space wishlist">Wishlist</span>
   <span class="fill-remaining-space cart">Cart</span>
-  <a routerLink="register" *ngIf="user === null">Register</a>
-  <a routerLink="login" *ngIf="user === null">Login</a>
-  <a routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>
+  <a class="login" routerLink="login" *ngIf="user === null">Log in</a>
+  <a class="logout" routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>
 </mat-toolbar>
 
 <div class="container">
