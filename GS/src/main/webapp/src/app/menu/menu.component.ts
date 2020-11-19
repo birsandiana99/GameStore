@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {User} from '../shared/user.model';
 import {AccountService} from '../shared/account.service';
 import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {filter, map, startWith} from 'rxjs/operators';
 import {Product} from '../shared/product.model';
+import {ProductService} from '../shared/product.service';
 
 @Component({
   selector: 'app-menu',
@@ -13,20 +14,18 @@ import {Product} from '../shared/product.model';
 })
 export class MenuComponent implements OnInit {
   myControl = new FormControl();
-  products: Product[] = [
-    new Product(1, 'name1', 'descr1', 1, new Uint8Array([10, 257])),
-    new Product(2, 'name2', 'descr2', 1, new Uint8Array([10, 257])),
-    new Product(3, 'name3', 'descr3', 1, new Uint8Array([10, 257])),
-    new Product(4, 'name4', 'descr4', 1, new Uint8Array([10, 257])),
-    new Product(5, 'name5', 'descr5', 1, new Uint8Array([10, 257])),
-    new Product(6, 'name6', 'descr6', 1, new Uint8Array([10, 257]))
-  ];
+  products: Product[] = [];
   filteredOptions: Observable<Product[]>;
   user: User;
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private productService: ProductService) {
+  }
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('user'));
+    this.productService.getProducts().subscribe(data => {
+      this.products = data;
+    });
+    // this.filteredOptions = this.productService.getProducts();
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -34,9 +33,8 @@ export class MenuComponent implements OnInit {
       );
   }
 
-  private _filter(value: string): Product[] {
+  private _filter(value: string): Product[]{
     const filterValue = value.toLowerCase();
-
     return this.products.filter(product => product.name.toLowerCase().includes(filterValue));
   }
 
