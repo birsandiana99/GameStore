@@ -35,4 +35,18 @@ public class ProductServiceImpl implements ProductService {
         logger.trace("getProductByDescription - ProductService -> method entered, description = {}", description);
         return productRepository.findAll().stream().filter(product -> product.getDescription().equals(description)).findFirst();
     }
+
+    @Override
+    public Optional<Product> getProductByID(Long ID) {
+        logger.trace("getProductByID - ProductService -> method entered, ID = {}", ID);
+        Optional<Product> optionalProduct =
+                productRepository.findAll().stream().filter(product -> product.getId().equals(ID)).findFirst();
+        if (optionalProduct.isEmpty()) {
+            logger.trace("getProductByID - ProductService -> no product with ID = {}", ID);
+        }
+        else{
+            logger.trace("getProductByID - ProductService -> product with ID = {} found, prod ={} ", ID, optionalProduct.get());
+        }
+        return optionalProduct;
+    }
 }
