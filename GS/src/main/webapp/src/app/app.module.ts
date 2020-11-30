@@ -22,6 +22,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ProductCardComponent } from './product-card/product-card.component';
 import {MatCardModule} from "@angular/material/card";
+import { CartComponent } from './cart/cart.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import {MatCardModule} from "@angular/material/card";
     MenuComponent,
     MainPageComponent,
     SearchComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import {MatCardModule} from "@angular/material/card";
     MatMenuModule,
     MatAutocompleteModule,
     MatCardModule,
+    MatTableModule,
   ],
   providers: [AccountService],
   bootstrap: [AppComponent]

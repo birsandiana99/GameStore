@@ -5,13 +5,15 @@ import { RegisterComponent} from './register/register.component';
 import { LoginComponent} from './login/login.component';
 import {MainPageComponent} from './main-page/main-page.component';
 import {SearchComponent} from './search/search.component';
+import {CartComponent} from "./cart/cart.component";
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent},
-  {path: 'search', component: SearchComponent},
-  {path: 'main-page', component: MainPageComponent}
+  { path: 'search', component: SearchComponent},
+  { path: 'main-page', component: MainPageComponent},
+  { path: 'cart', component: CartComponent}
 
 ];
 
