@@ -3,10 +3,7 @@ package ubb.gamestore.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ubb.gamestore.core.domain.Product;
 import ubb.gamestore.core.service.ProductService;
 import ubb.gamestore.web.converter.ProductConverter;
@@ -32,8 +29,18 @@ public class ProductController {
         return productConverter.convertModelsToDtos(products);
     }
 
-    @RequestMapping(value = "/getProductByID", method = RequestMethod.POST)
-    public ProductDTO getProductByID(@RequestBody Long ID) {
+    /*@RequestMapping(value = "/getProductByID", method = RequestMethod.POST)
+    public ProductDTO getProductByID(@RequestParam Long ID) {
+        Optional<Product> product = productService.getProductByID(ID);
+        logger.trace("getProductByID - ProductController -> method entered, ID = {}", ID);
+        if(product.isEmpty())
+            return null;
+
+        return productConverter.convertModelToDto(product.get());
+    }*/
+
+    @RequestMapping(value = "/getProductByID", params = "ID", method = RequestMethod.GET)
+    public ProductDTO getProductByID(@RequestParam Long ID) {
         Optional<Product> product = productService.getProductByID(ID);
         logger.trace("getProductByID - ProductController -> method entered, ID = {}", ID);
         if(product.isEmpty())
