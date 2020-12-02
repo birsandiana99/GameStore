@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {ProductService} from "../shared/product.service";
 
 
 @Component({
@@ -21,9 +22,11 @@ export class CartComponent implements OnInit {
   columnsToDisplay = ['name', 'quantity', 'price'];
   expandedElement: PeriodicElement | null;
 
-  constructor() { }
+  constructor(public productService:ProductService) { }
 
   ngOnInit(): void {
+    // this.productService.getCartProductsForUser(JSON.parse(sessionStorage.getItem('user')))
+    //   .subscribe(products => this.expandedElement = products)
   }
 
   removeRow(elm) {
