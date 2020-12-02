@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ProductService} from "../shared/product.service";
+import {User} from "../shared/user.model";
+import {Product} from "../shared/product.model";
+import {MatTableDataSource} from "@angular/material/table";
 
 
 @Component({
@@ -18,19 +21,30 @@ import {ProductService} from "../shared/product.service";
 
 export class CartComponent implements OnInit {
 
-  dataSource = ELEMENT_DATA;
+  //dataSource = ELEMENT_DATA;
+  expandedElement: Product[];
+  lista: Product[];
+  user: User;
+  dataSource: MatTableDataSource<any>;
+  // user: User = JSON.parse(sessionStorage.getItem('user'));
+  // // @ts-ignore
+  // dataSource = new MatTableDataSource(this.productService.getCartProductsForUser(this.user).subscribe(products => this.dataSource.data = products));
   columnsToDisplay = ['name', 'quantity', 'price'];
-  expandedElement: PeriodicElement | null;
 
-  constructor(public productService:ProductService) { }
+
+  constructor(private productService:ProductService) { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    // @ts-ignore
+    this.dataSource = new MatTableDataSource(this.productService.getCartProductsForUser(this.user).subscribe(products => this.dataSource.data = products));
     // this.productService.getCartProductsForUser(JSON.parse(sessionStorage.getItem('user')))
     //   .subscribe(products => this.expandedElement = products)
   }
 
   removeRow(elm) {
-    this.dataSource = this.dataSource.filter(i => i !== elm);
+    //this.dataSource = this.dataSource.filter(i => i !== elm);
+    this.productService.deleteProductFromCart(elm);
   }
 }
 

@@ -2,6 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../shared/user.model';
 import { Product } from '../shared/product.model';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {Cart} from "../shared/cart.model";
+import {ProductService} from "../shared/product.service";
 
 @Component({
   selector: 'app-product-card',
@@ -22,10 +24,12 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 })
 export class ProductCardComponent implements OnInit {
   // product: Product;
+  user: User;
   @Input()
   product: Product;
+  cart: Cart;
 
-  constructor() {
+  constructor(private productService: ProductService) {
   }
 
   ngOnInit(): void {
@@ -38,6 +42,7 @@ export class ProductCardComponent implements OnInit {
   buttonText = "ADD TO CART";
   // The text that will be shown when the transition is finished
   transitionButtonText = "ADD TO CART";
+
 
   /**
    * Respond to the transition event of the button text
@@ -52,6 +57,11 @@ export class ProductCardComponent implements OnInit {
     // Kick off the first transition
     this.buttonTextState = 'transitioning';
     this.transitionButtonText = 'ADDING...';
+
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    this.cart = new Cart(this.user.id, this.user, this.product);
+    console.log(this.cart);
+    this.productService.addProductToCart(this.cart).subscribe();
 
     // Do whatever logic here. If it is asynchronous, put the remaining code in your subscribe/then callbacks
     // Note if your logic is snappy, you could leave the timeouts in to simulate the animation for a better UX
