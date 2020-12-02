@@ -3,14 +3,18 @@ package ubb.gamestore.web.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import ubb.gamestore.core.domain.Cart;
 import ubb.gamestore.core.domain.Product;
 import ubb.gamestore.core.service.ProductService;
+import ubb.gamestore.web.converter.CartConverter;
 import ubb.gamestore.web.converter.ProductConverter;
+import ubb.gamestore.web.converter.UserConverter;
+import ubb.gamestore.web.dto.CartDTO;
 import ubb.gamestore.web.dto.ProductDTO;
+import ubb.gamestore.web.dto.UserDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,10 +27,14 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @Autowired
+    private UserConverter userConverter;
+    @Autowired
     private ProductConverter productConverter;
+    @Autowired
+    private CartConverter cartConverter;
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public List<ProductDTO> get() {
+    @RequestMapping(value = "/getProducts", method = RequestMethod.GET)
+    public List<ProductDTO> getProducts() {
         List<Product> products = productService.getProducts();
         logger.trace("get - ProductController -> method entered, products = {}", products);
         return productConverter.convertModelsToDtos(products);
@@ -40,5 +48,28 @@ public class ProductController {
             return null;
 
         return productConverter.convertModelToDto(product.get());
+    }
+
+    @RequestMapping(value = "/addProductToCart", method = RequestMethod.POST)
+    public CartDTO addProductToCart(@RequestBody CartDTO cartDTO){
+        logger.trace("addProductToCart - ProductController -> method entered, cartDTO = {}", cartDTO);
+        Cart cart = productService.addToCart(cartConverter.convertDtoToModel(cartDTO));
+        logger.trace("addProductToCart - ProductController -> method finished, cart = {}", cart);
+        return cartConverter.convertModelToDto(cart);
+    }
+
+    @RequestMapping(value = "/getCartProductsForUser", method = RequestMethod.POST)
+    public List<ProductDTO> getCartProductsForUser(@RequestBody UserDTO userDTO){
+        logger.trace("getCartProductsForUser - ProductController -> method entered, user = {}", userDTO);
+        List<Product> products = productService.getCartProductsForUser(userConverter.convertDtoToModel(userDTO));
+        logger.trace("getCartProductsForUser - ProductController -> method finished, products = {}", products);
+
+        return productConverter.convertModelsToDtos(products);
+    }
+
+    @RequestMapping(value = "/deleteCart/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteCart(@PathVariable Long id){
+        productService.deleteCart(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
