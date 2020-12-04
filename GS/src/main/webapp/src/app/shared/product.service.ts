@@ -26,17 +26,14 @@ export class ProductService {
   }
 
   addProductToCart(cart: Cart): Observable<Cart>{
-    console.log("in service ", cart)
     return this.http.post<Cart>(this.productUrl + '/addProductToCart', cart);
   }
 
   addProduct(product: Product): Observable<Product>{
-    console.log("in service - addProduct ", product)
     return this.http.post<Product>(this.productUrl + '/addProduct', product);
   }
 
   deleteProductFromCart(product: Product, userID:number): Observable<Response>{
-    console.log( 'deleteProductFromCart', product.id, userID)
     return this.http.post<Response>(this.productUrl + '/deleteCart', [product.id, userID]);
   }
 }

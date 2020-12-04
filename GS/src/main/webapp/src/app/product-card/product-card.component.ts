@@ -61,7 +61,6 @@ export class ProductCardComponent implements OnInit {
     this.user = JSON.parse(sessionStorage.getItem('user'));
     this.cart = new Cart(0, this.user, this.product);
     console.log(this.cart);
-    this.productService.addProduct(this.product).subscribe();
     this.productService.addProductToCart(this.cart).subscribe();
 
     // Do whatever logic here. If it is asynchronous, put the remaining code in your subscribe/then callbacks
