@@ -6,6 +6,7 @@ export class Cart{
   user: User;
   product: Product;
 
+
   constructor(id: number, user: User, product: Product) {
     this.id = id;
     this.user = user;

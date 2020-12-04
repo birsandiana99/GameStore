@@ -44,7 +44,7 @@ export class CartComponent implements OnInit {
 
   removeRow(elm) {
     //this.dataSource = this.dataSource.filter(i => i !== elm);
-    this.productService.deleteProductFromCart(elm);
+    this.productService.deleteProductFromCart(elm, this.user.id).subscribe();
   }
 }
 

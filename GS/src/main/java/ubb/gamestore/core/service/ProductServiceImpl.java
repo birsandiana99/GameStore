@@ -66,20 +66,24 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteCart(Long cartId) {
-        logger.trace("deleteCart - ProductService -> method entered, CartID = {}", cartId);
-        cartRepository.deleteById(cartId);
-        //logger.trace("deleteCart - ProductService -> method finished, CartID = {}", cartId);
+    public void deleteCart(Long productID, Long userID) {
+        logger.trace("deleteCart - ProductService -> method entered, productID = {}, userID = {}", productID, userID);
+        Optional<Cart> cartOptional = cartRepository.findAll().stream()
+                .filter(cart -> cart.getUser().getId().equals(userID))
+                .filter(cart -> cart.getProduct().getId().equals(productID))
+                .findFirst();
+        cartOptional.ifPresent(cart -> cartRepository.deleteById(cart.getId()));
+        logger.trace("deleteCart - ProductService -> method finished");
     }
 
     @Override
     public List<Product> getCartProductsForUser(GSUser user) {
         logger.trace("getCartProductsForUser - ProductService -> method entered, GSUser = {}", user);
         List<Product> shoppingCart = cartRepository.findAll().stream()
-                .filter(cart -> cart.getGSUser_id().equals(user))
-                .map(Cart::getProduct_id)
+                .filter(cart -> cart.getUser().getId().equals(user.getId()))
+                .map(Cart::getProduct)
                 .collect(Collectors.toList());
-        logger.trace("getCartProductsForUser - ProductService -> method finished, GSUser = {}", user);
+        logger.trace("getCartProductsForUser - ProductService -> method finished, shoppingCart = {}", shoppingCart);
         return shoppingCart;
     }
 }

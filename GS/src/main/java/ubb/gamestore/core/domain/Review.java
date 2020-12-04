@@ -11,11 +11,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 public class Review extends BaseEntity<Long>{
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_user_review", foreignKeyDefinition = "foreign key /* FK */ (id) references gsuser"))
     private GSUser GSUser_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_product_review", foreignKeyDefinition = "foreign key /* FK */ (id) references product"))
     private Product Product_id;
 

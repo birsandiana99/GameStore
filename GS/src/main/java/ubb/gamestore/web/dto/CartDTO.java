@@ -11,6 +11,6 @@ import ubb.gamestore.core.domain.GSUser;
 @NoArgsConstructor
 @Data
 public class CartDTO extends BaseDTO{
-    private UserDTO GSUser_id;
-    private ProductDTO Product_id;
+    private UserDTO user;
+    private ProductDTO product;
 }

@@ -18,7 +18,7 @@ public interface ProductService {
 
     Cart addToCart(Cart cart);
 
-    void deleteCart(Long cartId);
+    void deleteCart(Long productID, Long userID);
 
     List<Product> getCartProductsForUser(GSUser user);
 }

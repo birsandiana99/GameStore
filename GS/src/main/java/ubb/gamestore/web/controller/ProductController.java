@@ -58,6 +58,13 @@ public class ProductController {
         return cartConverter.convertModelToDto(cart);
     }
 
+    @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
+    public ProductDTO addProduct(@RequestBody ProductDTO productDTO){
+        logger.trace("addProduct - ProductController -> method entered, productDTO = {}", productDTO);
+        //todo
+        return productDTO;
+    }
+
     @RequestMapping(value = "/getCartProductsForUser", method = RequestMethod.POST)
     public List<ProductDTO> getCartProductsForUser(@RequestBody UserDTO userDTO){
         logger.trace("getCartProductsForUser - ProductController -> method entered, user = {}", userDTO);
@@ -67,9 +74,13 @@ public class ProductController {
         return productConverter.convertModelsToDtos(products);
     }
 
-    @RequestMapping(value = "/deleteCart/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteCart(@PathVariable Long id){
-        productService.deleteCart(id);
+    @RequestMapping(value = "/deleteCart", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteCart(@RequestBody Long[] IDs){
+        Long productID = IDs[0];
+        Long userID = IDs[1];
+        logger.trace("deleteCart - ProductController -> method entered, productID = {}, userID = {}", productID, userID);
+        productService.deleteCart(productID, userID);
+        logger.trace("deleteCart - ProductController -> method finished");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

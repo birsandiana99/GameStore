@@ -11,11 +11,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 public class Cart extends BaseEntity<Long>{
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_user_cart", foreignKeyDefinition = "foreign key /* FK */ (id) references gsuser"))
-    private GSUser GSUser_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private GSUser user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_product_cart", foreignKeyDefinition = "foreign key /* FK */ (id) references product"))
-    private Product Product_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Product product;
 }
