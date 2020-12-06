@@ -4,11 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ubb.gamestore.core.domain.Cart;
+import ubb.gamestore.core.domain.GSUser;
 import ubb.gamestore.core.domain.Product;
+import ubb.gamestore.core.repository.CartRepository;
 import ubb.gamestore.core.repository.ProductRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -16,6 +20,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private CartRepository cartRepository;
 
     @Override
     public List<Product> getProducts() {
@@ -48,5 +55,35 @@ public class ProductServiceImpl implements ProductService {
             logger.trace("getProductByID - ProductService -> product with ID = {} found, prod ={} ", ID, optionalProduct.get());
         }
         return optionalProduct;
+    }
+
+    @Override
+    public Cart addToCart(Cart cart) {
+        logger.trace("addToCart - ProductService -> method entered, Cart = {}", cart);
+        Cart addedCart = cartRepository.save(cart);
+        logger.trace("addToCart - ProductService -> method finished, Cart = {}", cart);
+        return addedCart;
+    }
+
+    @Override
+    public void deleteCart(Long productID, Long userID) {
+        logger.trace("deleteCart - ProductService -> method entered, productID = {}, userID = {}", productID, userID);
+        Optional<Cart> cartOptional = cartRepository.findAll().stream()
+                .filter(cart -> cart.getUser().getId().equals(userID))
+                .filter(cart -> cart.getProduct().getId().equals(productID))
+                .findFirst();
+        cartOptional.ifPresent(cart -> cartRepository.deleteById(cart.getId()));
+        logger.trace("deleteCart - ProductService -> method finished");
+    }
+
+    @Override
+    public List<Product> getCartProductsForUser(GSUser user) {
+        logger.trace("getCartProductsForUser - ProductService -> method entered, GSUser = {}", user);
+        List<Product> shoppingCart = cartRepository.findAll().stream()
+                .filter(cart -> cart.getUser().getId().equals(user.getId()))
+                .map(Cart::getProduct)
+                .collect(Collectors.toList());
+        logger.trace("getCartProductsForUser - ProductService -> method finished, shoppingCart = {}", shoppingCart);
+        return shoppingCart;
     }
 }

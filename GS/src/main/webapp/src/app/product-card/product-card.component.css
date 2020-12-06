@@ -33,3 +33,23 @@
   flex-direction: column;
 }
 
+button.sbmt-btn {
+  border-radius: 0;
+  border: 2px solid #272727;
+  cursor: pointer;
+  width: 100%
+}
+
+div.sbmt-btn-txt {
+  padding: 10px;
+  font-size: 1em;
+}
+
+button.sbmt-btn:hover {
+  background: #272727;
+  color: white;
+}
+
+button {
+  outline: 0;
+}

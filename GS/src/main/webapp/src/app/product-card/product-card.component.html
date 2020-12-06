@@ -5,9 +5,16 @@
     <p class="product-price">
       {{product.price}}$
     </p>
+    <button class="sbmt-btn"
+            (click)="onAddToCart()">
+      <div class="sbmt-btn-txt"
+           [@buttonTextStateTrigger]="buttonTextState"
+           (@buttonTextStateTrigger.done)="buttonTextTransitioned($event)">
+        {{ buttonText }}
+      </div>
+    </button>
   </mat-card-content>
-  <div class="buyParent">
-    <button mat-raised-button class="buy-product">Buy</button>
-  </div>
-
+<!--  <div class="buyParent">-->
+<!--    <button mat-raised-button class="buy-product">Buy</button>-->
+<!--  </div>-->
 </mat-card>

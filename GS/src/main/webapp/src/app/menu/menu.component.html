@@ -43,7 +43,7 @@
       </button>
     </form>
   <span class="fill-remaining-space wishlist">Wishlist</span>
-  <span class="fill-remaining-space cart">Cart</span>
+  <a class="fill-remaining-space cart" routerLink="cart">Cart</a>
   <a class="login" routerLink="login" *ngIf="user === null">Log in</a>
   <a class="login" routerLink="register" *ngIf="user === null">Register</a>
   <a class="logout" routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>
