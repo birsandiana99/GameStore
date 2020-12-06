@@ -15,7 +15,7 @@ import javax.persistence.Lob;
 public class Product extends BaseEntity<Long> {
     @Column(length = 20)
     private String name;
-    @Column(length = 20)
+    @Column(length = 200)
     private String description;
     @Column(length = 20)
     private int price;

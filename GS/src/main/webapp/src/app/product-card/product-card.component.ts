@@ -1,9 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../shared/user.model';
 import { Product } from '../shared/product.model';
+<<<<<<< HEAD
+import {Router} from "@angular/router";
+=======
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Cart} from "../shared/cart.model";
 import {ProductService} from "../shared/product.service";
+>>>>>>> origin/main
 
 @Component({
   selector: 'app-product-card',
@@ -29,13 +33,22 @@ export class ProductCardComponent implements OnInit {
   product: Product;
   cart: Cart;
 
+<<<<<<< HEAD
+  constructor(private route:Router) {
+=======
   constructor(private productService: ProductService) {
+>>>>>>> origin/main
   }
 
   ngOnInit(): void {
     // this.product = new Product(1, 'name1', 'descr1', 1, new Uint8Array([10, 257]));
   }
 
+<<<<<<< HEAD
+  goToDetails(){
+    //window.sessionStorage.setItem("prodID",<string><unknown>this.product.id)
+    this.route.navigate(['/product-details',this.product.id]);
+=======
   // The current state of the button text
   buttonTextState = 'shown';
   // The text currently being show
@@ -76,5 +89,6 @@ export class ProductCardComponent implements OnInit {
       this.buttonTextState = 'transitioning';
       this.transitionButtonText = 'ADD TO CART';
     }, 3600);
+>>>>>>> origin/main
   }
 }

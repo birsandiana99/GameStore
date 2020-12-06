@@ -21,9 +21,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ProductCardComponent } from './product-card/product-card.component';
+<<<<<<< HEAD
+import {MatCardModule} from '@angular/material/card';
+import {ProductDetailsComponent} from './product-details/product-details.component';
+import {MatListModule} from "@angular/material/list";
+import {ProductService} from "./shared/product.service";
+import {Product} from "./shared/product.model";
+=======
 import {MatCardModule} from "@angular/material/card";
 import { CartComponent } from './cart/cart.component';
 import {MatTableModule} from "@angular/material/table";
+>>>>>>> origin/main
 
 @NgModule({
   declarations: [
@@ -34,7 +42,11 @@ import {MatTableModule} from "@angular/material/table";
     MainPageComponent,
     SearchComponent,
     ProductCardComponent,
+<<<<<<< HEAD
+    ProductDetailsComponent
+=======
     CartComponent
+>>>>>>> origin/main
   ],
   imports: [
     BrowserModule,
@@ -52,9 +64,14 @@ import {MatTableModule} from "@angular/material/table";
     MatMenuModule,
     MatAutocompleteModule,
     MatCardModule,
+<<<<<<< HEAD
+    MatListModule,
+
+=======
     MatTableModule,
+>>>>>>> origin/main
   ],
-  providers: [AccountService],
+  providers: [AccountService,ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

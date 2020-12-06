@@ -1,0 +1,32 @@
+.example-card {
+  max-width: 700px;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  margin-top: 3%;
+  background-color: #dde8ed;
+  text-align: -webkit-center;
+}
+.mat-button{
+  background-color: white;
+  margin: 10px;
+}
+.mat-card-header{
+  text-align: -webkit-center !important;
+}
+.mat-card-title{
+  font-size: 30px;
+  margin-top: 16px;
+  width: 700px;
+}
+.product-price{
+  padding: 12px;
+  font-size: 16px;
+}
+.product-card-image{
+  margin: 20px !important;
+  max-width: 450px !important;
+  height: auto;
+
+}
+

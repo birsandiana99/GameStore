@@ -20,6 +20,13 @@ export class ProductService {
     return this.http.get<Product[]>(this.productUrl + '/getProducts');
   }
 
+<<<<<<< HEAD
+  getProductByID(productID):Observable<Product>
+  {
+   return this.http.get<Product>(this.productUrl+'/getProductByID?ID='+productID);
+  }
+
+=======
   getCartProductsForUser(user: User): Observable<Product[]>
   {
     return this.http.post<Product[]>(this.productUrl + '/getCartProductsForUser', user);
@@ -36,4 +43,5 @@ export class ProductService {
   deleteProductFromCart(product: Product, userID:number): Observable<Response>{
     return this.http.post<Response>(this.productUrl + '/deleteCart', [product.id, userID]);
   }
+>>>>>>> origin/main
 }
