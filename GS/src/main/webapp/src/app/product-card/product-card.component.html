@@ -1,6 +1,6 @@
-<mat-card (click)="goToDetails()" class="product{{product.name}}-card product-card-general">
-  <img mat-card-image src="assets/test.png" class="product{{product.name}}-image product-card-image ">
-  <div class="fill-remaining-space product-name">{{product.name}}</div>
+<mat-card class="product{{product.name}}-card product-card-general">
+  <img (click)="goToDetails()" mat-card-image src="assets/test.png" class="product{{product.name}}-image product-card-image ">
+  <div (click)="goToDetails()" class="fill-remaining-space product-name">{{product.name}}</div>
   <mat-card-content>
     <p class="product-price">
       {{product.price}}$

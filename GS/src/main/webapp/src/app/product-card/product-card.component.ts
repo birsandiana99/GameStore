@@ -1,13 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../shared/user.model';
 import { Product } from '../shared/product.model';
-<<<<<<< HEAD
-import {Router} from "@angular/router";
-=======
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {Cart} from "../shared/cart.model";
 import {ProductService} from "../shared/product.service";
->>>>>>> origin/main
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-card',
@@ -29,26 +26,23 @@ import {ProductService} from "../shared/product.service";
 export class ProductCardComponent implements OnInit {
   // product: Product;
   user: User;
+  test: Product[] = [];
   @Input()
   product: Product;
   cart: Cart;
 
-<<<<<<< HEAD
-  constructor(private route:Router) {
-=======
-  constructor(private productService: ProductService) {
->>>>>>> origin/main
+  constructor(private productService: ProductService,
+              private route: Router) {
   }
 
   ngOnInit(): void {
     // this.product = new Product(1, 'name1', 'descr1', 1, new Uint8Array([10, 257]));
   }
 
-<<<<<<< HEAD
-  goToDetails(){
+  goToDetails() {
     //window.sessionStorage.setItem("prodID",<string><unknown>this.product.id)
-    this.route.navigate(['/product-details',this.product.id]);
-=======
+    this.route.navigate(['/product-details', this.product.id]);
+  }
   // The current state of the button text
   buttonTextState = 'shown';
   // The text currently being show
@@ -72,9 +66,18 @@ export class ProductCardComponent implements OnInit {
     this.transitionButtonText = 'ADDING...';
 
     this.user = JSON.parse(sessionStorage.getItem('user'));
-    this.cart = new Cart(0, this.user, this.product);
-    console.log(this.cart);
-    this.productService.addProductToCart(this.cart).subscribe();
+
+    console.log(this.test);
+    console.log(this.product);
+    console.log(this.test.indexOf(this.product));
+
+    if(this.test.indexOf(this.product) > -1) {
+      console.log("E DEJA IN CART");
+    }
+    else{
+      this.cart = new Cart(0, this.user, this.product);
+      this.productService.addProductToCart(this.cart).subscribe();
+    }
 
     // Do whatever logic here. If it is asynchronous, put the remaining code in your subscribe/then callbacks
     // Note if your logic is snappy, you could leave the timeouts in to simulate the animation for a better UX
@@ -89,6 +92,7 @@ export class ProductCardComponent implements OnInit {
       this.buttonTextState = 'transitioning';
       this.transitionButtonText = 'ADD TO CART';
     }, 3600);
->>>>>>> origin/main
+
+    this.test.push(this.product);
   }
 }

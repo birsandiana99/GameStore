@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ProductService} from "../shared/product.service";
 import {User} from "../shared/user.model";
@@ -29,10 +29,12 @@ export class CartComponent implements OnInit {
   // user: User = JSON.parse(sessionStorage.getItem('user'));
   // // @ts-ignore
   // dataSource = new MatTableDataSource(this.productService.getCartProductsForUser(this.user).subscribe(products => this.dataSource.data = products));
-  columnsToDisplay = ['name', 'quantity', 'price'];
+  //columnsToDisplay = ['name', 'quantity', 'price'];
+  columnsToDisplay = ['name', 'price'];
 
 
-  constructor(private productService:ProductService) { }
+  constructor(private productService:ProductService,
+              private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('user'));
@@ -45,6 +47,11 @@ export class CartComponent implements OnInit {
   removeRow(elm) {
     //this.dataSource = this.dataSource.filter(i => i !== elm);
     this.productService.deleteProductFromCart(elm, this.user.id).subscribe();
+    this.refresh();
+  }
+
+  refresh() {
+    this.productService.getCartProductsForUser(this.user).subscribe(products => this.dataSource.data = products);
   }
 }
 
