@@ -22,31 +22,69 @@
       </button>
     </mat-menu>
   </span>
-  <span class="fill-remaining-space gamestore" routerLink="main-page" >Game Store</span>
-  <div class="hello" *ngIf="user">Hello {{user.name}}!</div>
-    <form class="search-form">
-      <mat-form-field class="input-container">
-        <mat-label>Search</mat-label>
-        <input type="text"
-               aria-label="Number"
-               matInput
-               [formControl]="myControl"
-               [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let prod of filteredOptions | async" [value]="prod.name">
-            {{prod.name + ": " + prod.price + "$"}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <button mat-button class="searchBtn">
-        <mat-icon aria-hidden="false" aria-label="searchIcon">search</mat-icon>
+  <!--  <span class="fill-remaining-space gamestore" routerLink="main-page" >Game Store</span>-->
+  <div>
+    <button mat-flat-button color="primary" routerLink="main-page" style="font-size: 18px; margin-right: auto">
+      <mat-icon>videogame_asset</mat-icon>
+      Game Store
+    </button>
+  </div>
+  <div class="hello" *ngIf="user">Hello {{user.name}} !</div>
+  <form class="search-form">
+    <mat-form-field class="input-container">
+      <mat-label>Search</mat-label>
+      <input type="text"
+             aria-label="Number"
+             matInput
+             [formControl]="myControl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let prod of filteredOptions | async" [value]="prod.name">
+          {{prod.name + ": " + prod.price + "$"}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-button class="searchBtn">
+      <mat-icon aria-hidden="false" aria-label="searchIcon">search</mat-icon>
+    </button>
+  </form>
+  <div class="example-flex-container">
+    <div class="example-button-container">
+      <button mat-raised-button color="primary">
+        <mat-icon>favorite</mat-icon>
+        Wishlist
       </button>
-    </form>
-  <span class="fill-remaining-space wishlist">Wishlist</span>
-  <a class="fill-remaining-space cart" routerLink="cart">Cart</a>
-  <a class="login" routerLink="login" *ngIf="user === null">Log in</a>
-  <a class="login" routerLink="register" *ngIf="user === null">Register</a>
-  <a class="logout" routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>
+    </div>
+    <div class="example-button-container">
+      <button mat-raised-button color="primary" routerLink="cart">
+        <mat-icon>shopping_cart</mat-icon>
+        Cart
+      </button>
+    </div>
+    <div class="example-button-container">
+      <button mat-raised-button color="primary" routerLink="login" *ngIf="user === null">
+        <mat-icon>login</mat-icon>
+        Log in
+      </button>
+    </div>
+    <div class="example-button-container">
+      <button mat-raised-button color="primary" routerLink="register" *ngIf="user === null">
+        <mat-icon>supervisor_account</mat-icon>
+        Register
+      </button>
+    </div>
+    <div class="example-button-container">
+      <button mat-raised-button color="primary" routerLink="" *ngIf="user !== null" (click)="logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        Logout
+      </button>
+    </div>
+  </div>
+  <!--  <span class="fill-remaining-space wishlist">Wishlist</span>-->
+  <!--  <a class="fill-remaining-space cart" routerLink="cart">Cart</a>-->
+  <!--  <a class="login" routerLink="login" *ngIf="user === null">Log in</a>-->
+  <!--  <a class="login" routerLink="register" *ngIf="user === null">Register</a>-->
+  <!--  <a class="logout" routerLink="" *ngIf="user !== null" (click)="logout()">Logout</a>-->
 </mat-toolbar>
 
 <div class="container">

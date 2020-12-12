@@ -23,7 +23,7 @@ div{ margin: 0;}
 .menuItems a{
 
   text-decoration: none;
-  margin: 5px 0px;
+  margin: 5px 0;
   padding: 12px 32px;
   border-left: 1px solid;
   color: blue;
@@ -33,7 +33,7 @@ div{ margin: 0;}
 .menuItems p{
 
   text-decoration: none;
-  margin: 5px 0px;
+  margin: 5px 0;
   padding: 12px 32px;
   color: blue;
   height: 100%;
@@ -55,7 +55,7 @@ div{ margin: 0;}
 }
 
 .search-form{
-  margin-left: 8%;
+  margin-left: auto;
 }
 
 .toolbar{
@@ -67,7 +67,7 @@ div{ margin: 0;}
 }
 
 .hello {
-  margin-left: 3%;
+  margin-left: auto;
 }
 
 .login {
@@ -82,3 +82,15 @@ div{ margin: 0;}
   background-color: transparent;
 }
 
+.example-flex-container {
+  display: inline-block;
+  justify-content: space-between;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: inline-flex;
+  justify-content: center;
+  width: 120px;
+}
