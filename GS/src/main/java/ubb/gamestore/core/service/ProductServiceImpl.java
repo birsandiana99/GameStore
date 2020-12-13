@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import ubb.gamestore.core.domain.Cart;
 import ubb.gamestore.core.domain.GSUser;
 import ubb.gamestore.core.domain.Product;
+import ubb.gamestore.core.domain.Wishlist;
 import ubb.gamestore.core.repository.CartRepository;
 import ubb.gamestore.core.repository.ProductRepository;
+import ubb.gamestore.core.repository.WishlistRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +25,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private CartRepository cartRepository;
+
+    @Autowired
+    private WishlistRepository wishlistRepository;
 
     @Override
     public List<Product> getProducts() {
@@ -85,5 +90,35 @@ public class ProductServiceImpl implements ProductService {
                 .collect(Collectors.toList());
         logger.trace("getCartProductsForUser - ProductService -> method finished, shoppingCart = {}", shoppingCart);
         return shoppingCart;
+    }
+
+    @Override
+    public Wishlist addToWishlist(Wishlist wishlist) {
+        logger.trace("addToWishlist - ProductService -> method entered, Wishlist = {}", wishlist);
+        Wishlist addedWishlist = wishlistRepository.save(wishlist);
+        logger.trace("addToWishlist - ProductService -> method finished, Wishlist = {}", wishlist);
+        return addedWishlist;
+    }
+
+    @Override
+    public void deleteWishlist(Long productID, Long userID) {
+        logger.trace("deleteWishlist - ProductService -> method entered, productID = {}, userID = {}", productID, userID);
+        Optional<Wishlist> wishlistOptional = wishlistRepository.findAll().stream().
+                filter(wishlist -> wishlist.getUser().getId().equals(userID)).
+                filter(wishlist -> wishlist.getProduct().getId().equals(productID)).
+                findFirst();
+        wishlistOptional.ifPresent(wishlist -> wishlistRepository.deleteById(wishlist.getId()));
+        logger.trace("deleteWishlist - ProductService -> method finished");
+    }
+
+    @Override
+    public List<Product> getWishlistProductsForUser(GSUser user) {
+        logger.trace("getWishlistProductsForUser - ProductService -> method entered, GSUser = {}", user);
+        List<Product> wishList = wishlistRepository.findAll().stream()
+                .filter(wishlist -> wishlist.getUser().getId().equals(user.getId()))
+                .map(Wishlist::getProduct)
+                .collect(Collectors.toList());
+        logger.trace("getWishlistProductsForUser - ProductService -> method finished, WishList = {}", wishList);
+        return wishList;
     }
 }

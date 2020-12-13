@@ -9,13 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ubb.gamestore.core.domain.Cart;
 import ubb.gamestore.core.domain.Product;
+import ubb.gamestore.core.domain.Wishlist;
 import ubb.gamestore.core.service.ProductService;
 import ubb.gamestore.web.converter.CartConverter;
 import ubb.gamestore.web.converter.ProductConverter;
 import ubb.gamestore.web.converter.UserConverter;
+import ubb.gamestore.web.converter.WishlistConverter;
 import ubb.gamestore.web.dto.CartDTO;
 import ubb.gamestore.web.dto.ProductDTO;
 import ubb.gamestore.web.dto.UserDTO;
+import ubb.gamestore.web.dto.WishlistDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +36,8 @@ public class ProductController {
     private ProductConverter productConverter;
     @Autowired
     private CartConverter cartConverter;
+    @Autowired
+    private WishlistConverter wishlistConverter;
 
     @RequestMapping(value = "/getProducts", method = RequestMethod.GET)
     public List<ProductDTO> getProducts() {
@@ -92,6 +97,33 @@ public class ProductController {
         logger.trace("deleteCart - ProductController -> method entered, productID = {}, userID = {}", productID, userID);
         productService.deleteCart(productID, userID);
         logger.trace("deleteCart - ProductController -> method finished");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/addProdToWishlist", method = RequestMethod.POST)
+    public WishlistDTO addProdToWishlist(@RequestBody WishlistDTO wishlistDTO) {
+        logger.trace("addProdToWishlist - ProductController -> method entered, wishlistDTO = {}", wishlistDTO);
+        Wishlist wishlist = productService.addToWishlist(wishlistConverter.convertDtoToModel(wishlistDTO));
+        logger.trace("addProdToWishlist - ProductController -> method finished, wishlist = {}", wishlist);
+        return wishlistConverter.convertModelToDto(wishlist);
+    }
+
+    @RequestMapping(value = "/getWishlistProductsForUser", method = RequestMethod.POST)
+    public List<ProductDTO> getWishlistProductForUser(@RequestBody UserDTO userDTO) {
+        logger.trace("getWishlistProductsForUser - ProductController -> method entered, user = {}", userDTO);
+        List<Product> products = productService.getWishlistProductsForUser(userConverter.convertDtoToModel(userDTO));
+        logger.trace("getWishlistProductsForUser - ProductController -> method finished, products = {}", products);
+
+        return productConverter.convertModelsToDtos(products);
+    }
+
+    @RequestMapping(value = "/deleteWishlist", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteWishlist(@RequestBody Long[] IDs) {
+        Long productID = IDs[0];
+        Long userID = IDs[1];
+        logger.trace("deleteWishlist - ProductController -> method entered, productID = {}, userID = {}", productID, userID);
+        productService.deleteWishlist(productID, userID);
+        logger.trace("deleteWishlist - ProductController -> method finished");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
