@@ -30,3 +30,57 @@
 
 }
 
+.review-text-area {
+  min-width: 300px;
+  min-height: 55px;
+}
+
+.review_list_ul{
+  text-align: left !important;
+}
+
+.review-div{
+  margin-bottom: 40px !important;
+  width: auto !important;
+}
+
+
+.review-card {
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.review-card-content{
+  max-height: 150px !important;
+  overflow: auto !important;
+}
+
+.user-label{
+  padding-left:5px !important;
+}
+
+.add-review-form{
+  width: 620px;
+  padding-left: 30px;
+}
+
+.review-input{
+  /*min-height: 150px !important;*/
+  overflow: scroll !important;
+}
+
+.textarea{
+  min-width: 600px;
+}
+
+.mat-form-field-wrapper{
+  padding-bottom: 0 !important;
+}
+
+.mat-button{
+  top: -10px !important;
+}
+
+textarea:focus{
+  border: none;
+}

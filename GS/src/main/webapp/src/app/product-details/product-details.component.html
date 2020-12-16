@@ -12,11 +12,26 @@
    </p>
    <button mat-button>Buy</button>
    <button mat-button (click)="addToWishlist()">Wishlist</button>
+
+
  </mat-card-content>
- <!--<b>Reviews:</b>
- <mat-list role="list">
- <mat-list-item role="listitem">review</mat-list-item>
- </mat-list>-->
+  <mat-form-field class="add-review-form" appearance="fill">
+    <mat-label>Leave a review</mat-label>
+    <form action="/form/submit" method="GET">
+      <textarea class="textarea" rows="5" cols="60" name="text" placeholder="Add a review"></textarea>
+    </form>
+  </mat-form-field>
+  <button mat-button color="black">Add</button>
+  <ul class="review_list_ul">
+    <div  *ngFor="let rev of reviews" class="review-div">
+      <label class="user-label"> USER X </label>
+      <mat-card class="review-card">
+        <mat-card-content class="review-card-content">
+         {{rev}}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ul>
   <mat-card-actions>
 
   </mat-card-actions>
