@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Product} from '../shared/product.model';
-import { ProductService} from "../shared/product.service";
-import {ActivatedRoute, convertToParamMap, Router} from "@angular/router";
+import { ProductService} from '../shared/product.service';
+import {ActivatedRoute, convertToParamMap, Router} from '@angular/router';
 
 
 @Component({
@@ -12,22 +12,26 @@ import {ActivatedRoute, convertToParamMap, Router} from "@angular/router";
 
 export class ProductDetailsComponent implements OnInit {
   @Input()
-  public product:Product
+  public product: Product;
 
-  constructor(private productService : ProductService,public route : ActivatedRoute) {
+  constructor(private productService: ProductService, public route: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
-    //this.product = new Product(12,"nume","descriere",12,null)
-    let idprod = this.route.snapshot.paramMap.get('id')
+    // this.product = new Product(12,"nume","descriere",12,null)
+    const idprod = this.route.snapshot.paramMap.get('id');
     this.route.params.subscribe(params => {
-    let idprod = convertToParamMap(params).get('id');
-    })
+    const idprod = convertToParamMap(params).get('id');
+    });
     this.productService.getProductByID(idprod).subscribe(data => {
       this.product = data;
     });
 
+
+  }
+
+  addToWishlist() {
 
   }
 }

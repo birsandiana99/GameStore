@@ -1,11 +1,10 @@
 import {User} from './user.model';
 import {Product} from './product.model';
 
-export class Cart{
+export class Wishlist {
   id: number;
   user: User;
   product: Product;
-
 
   constructor(id: number, user: User, product: Product) {
     this.id = id;

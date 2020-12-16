@@ -11,7 +11,7 @@
      <b>{{product.price}}$</b>
    </p>
    <button mat-button>Buy</button>
-   <button mat-button>Wishlist</button>
+   <button mat-button (click)="addToWishlist()">Wishlist</button>
  </mat-card-content>
  <!--<b>Reviews:</b>
  <mat-list role="list">

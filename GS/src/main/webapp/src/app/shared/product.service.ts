@@ -4,8 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Product} from './product.model';
-import {User} from "./user.model";
-import {Cart} from "./cart.model";
+import {User} from './user.model';
+import {Cart} from './cart.model';
+import {Wishlist} from './wishlist.model';
 
 @Injectable({providedIn: 'root'})
 export class ProductService {
@@ -20,9 +21,9 @@ export class ProductService {
     return this.http.get<Product[]>(this.productUrl + '/getProducts');
   }
 
-  getProductByID(productID):Observable<Product>
+  getProductByID(productID): Observable<Product>
   {
-   return this.http.get<Product>(this.productUrl+'/getProductByID?ID='+productID);
+   return this.http.get<Product>(this.productUrl + '/getProductByID?ID=' + productID);
   }
 
   getCartProductsForUser(user: User): Observable<Product[]>
@@ -34,11 +35,27 @@ export class ProductService {
     return this.http.post<Cart>(this.productUrl + '/addProductToCart', cart);
   }
 
+  addProdToWishlist(wishlist: Wishlist): Observable<Wishlist> {
+    console.log('addProdToWishlist called');
+    return this.http.post<Wishlist>(this.productUrl + '/addProdToWishlist', wishlist);
+  }
+
+  getWishlistForUser(user: User): Observable<Product[]>
+  {
+    return this.http.post<Product[]>(this.productUrl + '/getWishlistProductsForUser', user);
+  }
+
+  deleteProductFromWishlist(product: Product, userID: number): Observable<Response>
+  {
+    console.log('deleteProdFromWishlist called');
+    return this.http.post<Response>(this.productUrl + '/deleteWishlist', [product.id, userID]);
+  }
+
   addProduct(product: Product): Observable<Product>{
     return this.http.post<Product>(this.productUrl + '/addProduct', product);
   }
 
-  deleteProductFromCart(product: Product, userID:number): Observable<Response>{
+  deleteProductFromCart(product: Product, userID: number): Observable<Response>{
     return this.http.post<Response>(this.productUrl + '/deleteCart', [product.id, userID]);
   }
 }

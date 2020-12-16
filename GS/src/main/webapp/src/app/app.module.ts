@@ -23,11 +23,11 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ProductCardComponent } from './product-card/product-card.component';
 import {MatCardModule} from '@angular/material/card';
 import {ProductDetailsComponent} from './product-details/product-details.component';
-import {MatListModule} from "@angular/material/list";
-import {ProductService} from "./shared/product.service";
-import {Product} from "./shared/product.model";
+import {MatListModule} from '@angular/material/list';
+import {ProductService} from './shared/product.service';
+import {Product} from './shared/product.model';
 import { CartComponent } from './cart/cart.component';
-import {MatTableModule} from "@angular/material/table";
+import {MatTableModule} from '@angular/material/table';
 import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
@@ -62,7 +62,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     MatListModule,
     MatTableModule,
   ],
-  providers: [AccountService,ProductService],
+  providers: [AccountService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
