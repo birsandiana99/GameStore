@@ -43,6 +43,13 @@ export class ProductCardComponent implements OnInit {
     //window.sessionStorage.setItem("prodID",<string><unknown>this.product.id)
     this.route.navigate(['/product-details', this.product.id]);
   }
+
+
+  addToWishlist() { //TODO
+    //window.sessionStorage.setItem("prodID",<string><unknown>this.product.id)
+    // this.route.navigate(['/product-details', this.product.id]);
+  }
+
   // The current state of the button text
   buttonTextState = 'shown';
   // The text currently being show

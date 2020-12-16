@@ -1,4 +1,5 @@
 <mat-card class="product{{product.name}}-card product-card-general">
+  <mat-icon (click)="addToWishlist()" class="whishlist-icn" aria-hidden="false" aria-label="Add to whishlist">stars</mat-icon>
   <img (click)="goToDetails()" mat-card-image src="assets/test.png" class="product{{product.name}}-image product-card-image ">
   <div (click)="goToDetails()" class="fill-remaining-space product-name">{{product.name}}</div>
   <mat-card-content>

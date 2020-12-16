@@ -28,6 +28,7 @@ import {ProductService} from "./shared/product.service";
 import {Product} from "./shared/product.model";
 import { CartComponent } from './cart/cart.component';
 import {MatTableModule} from "@angular/material/table";
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {MatTableModule} from "@angular/material/table";
     SearchComponent,
     ProductCardComponent,
     ProductDetailsComponent,
-    CartComponent
+    CartComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,

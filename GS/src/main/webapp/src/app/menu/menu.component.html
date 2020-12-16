@@ -42,7 +42,7 @@
         <mat-icon aria-hidden="false" aria-label="searchIcon">search</mat-icon>
       </button>
     </form>
-  <span class="fill-remaining-space wishlist">Wishlist</span>
+  <a class="fill-remaining-space wishlist" routerLink="whishlist">Wishlist</a>
   <a class="fill-remaining-space cart" routerLink="cart">Cart</a>
   <a class="login" routerLink="login" *ngIf="user === null">Log in</a>
   <a class="login" routerLink="register" *ngIf="user === null">Register</a>
