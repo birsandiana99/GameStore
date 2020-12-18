@@ -67,7 +67,7 @@ export class ProductCardComponent implements OnInit {
     else
     {
       this.wishlist = new Wishlist(0, this.user, this.product);
-      this.productService.addProdToWishlist(this.wishlist);
+      this.productService.addProdToWishlist(this.wishlist).subscribe();
     }
 
     this.testW.push(this.product);
@@ -95,13 +95,8 @@ export class ProductCardComponent implements OnInit {
     console.log(this.product);
     console.log(this.test.indexOf(this.product));
 
-    if (this.test.indexOf(this.product) > -1) {
-      console.log('E DEJA IN CART');
-    }
-    else{
-      this.cart = new Cart(0, this.user, this.product);
-      this.productService.addProductToCart(this.cart).subscribe();
-    }
+    this.cart = new Cart(0, this.user, this.product);
+    this.productService.addProductToCart(this.cart).subscribe();
 
     // Do whatever logic here. If it is asynchronous, put the remaining code in your subscribe/then callbacks
     // Note if your logic is snappy, you could leave the timeouts in to simulate the animation for a better UX
