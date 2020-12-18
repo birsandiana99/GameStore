@@ -2,13 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Product} from '../shared/product.model';
 import { ProductService} from "../shared/product.service";
 import {ActivatedRoute, convertToParamMap, Router} from "@angular/router";
-<<<<<<< HEAD
 import {Wishlist} from "../shared/wishlist.model";
 import {User} from "../shared/user.model";
 import {Cart} from "../shared/cart.model";
-=======
-import {User} from "../shared/user.model";
->>>>>>> 9ec6c948ccd290deb6bd2d51ad846ac6532e86c3
 
 
 @Component({
@@ -19,12 +15,9 @@ import {User} from "../shared/user.model";
 
 export class ProductDetailsComponent implements OnInit {
   user: User;
-<<<<<<< HEAD
   test: Product[] = [];
   testW: Product[] = [];
-=======
   testadmin1: boolean;
->>>>>>> 9ec6c948ccd290deb6bd2d51ad846ac6532e86c3
   @Input()
   public product:Product;
   wishlist: Wishlist;
@@ -92,9 +85,6 @@ export class ProductDetailsComponent implements OnInit {
 
     this.cart = new Cart(0, this.user, this.product);
     this.productService.addProductToCart(this.cart).subscribe();
-
-    // Do whatever logic here. If it is asynchronous, put the remaining code in your subscribe/then callbacks
-    // Note if your logic is snappy, you could leave the timeouts in to simulate the animation for a better UX
 
     this.test.push(this.product);
   }
