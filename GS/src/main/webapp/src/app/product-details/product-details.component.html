@@ -1,4 +1,16 @@
 <mat-card class="example-card">
+  <div class="example-flex-container">
+    <div class="example-button-container" *ngIf="testadmin1">
+      <button mat-mini-fab color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </div>
+    <div class="example-button-container" *ngIf="testadmin1">
+      <button mat-mini-fab color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
   <mat-card-header>
     <mat-card-title> {{product.name}} </mat-card-title>
   </mat-card-header>

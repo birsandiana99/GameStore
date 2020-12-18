@@ -4,6 +4,7 @@ import {ProductCardComponent} from '../product-card/product-card.component';
 import {Product} from '../shared/product.model';
 import {ProductService} from '../shared/product.service';
 import {Observable} from 'rxjs';
+import {User} from "../shared/user.model";
 
 // @NgModule({
 //   declarations: [
@@ -28,11 +29,22 @@ export class MainPageComponent implements OnInit {
   ];*/
   // products.foreach()
   products: Product[];
+  user: User;
+  testadmin1: boolean;
 
   constructor(private productService: ProductService) { }
   ngOnInit(): void {
+    this.testadmin();
     this.productService.getProducts().subscribe(data => {
       this.products = data;
     });
+  }
+
+  testadmin() {
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    if(this.user == null)
+      this.testadmin1 = false;
+    else
+      this.testadmin1 = this.user.isAdmin;
   }
 }

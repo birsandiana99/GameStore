@@ -2,9 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Product} from '../shared/product.model';
 import { ProductService} from "../shared/product.service";
 import {ActivatedRoute, convertToParamMap, Router} from "@angular/router";
+<<<<<<< HEAD
 import {Wishlist} from "../shared/wishlist.model";
 import {User} from "../shared/user.model";
 import {Cart} from "../shared/cart.model";
+=======
+import {User} from "../shared/user.model";
+>>>>>>> 9ec6c948ccd290deb6bd2d51ad846ac6532e86c3
 
 
 @Component({
@@ -15,8 +19,12 @@ import {Cart} from "../shared/cart.model";
 
 export class ProductDetailsComponent implements OnInit {
   user: User;
+<<<<<<< HEAD
   test: Product[] = [];
   testW: Product[] = [];
+=======
+  testadmin1: boolean;
+>>>>>>> 9ec6c948ccd290deb6bd2d51ad846ac6532e86c3
   @Input()
   public product:Product;
   wishlist: Wishlist;
@@ -34,6 +42,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.testadmin();
     //this.product = new Product(12,"nume","descriere",12,null)
     let idprod = this.route.snapshot.paramMap.get('id')
     this.route.params.subscribe(params => {
@@ -42,8 +51,14 @@ export class ProductDetailsComponent implements OnInit {
     this.productService.getProductByID(idprod).subscribe(data => {
       this.product = data;
     });
+  }
 
-
+  testadmin() {
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    if(this.user == null)
+      this.testadmin1 = false;
+    else
+      this.testadmin1 = this.user.isAdmin;
   }
 
   addComment() {

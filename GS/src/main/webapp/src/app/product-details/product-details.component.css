@@ -27,7 +27,18 @@
   margin: 20px !important;
   max-width: 450px !important;
   height: auto;
+}
 
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: flex-end;
+  /*width: 80px;*/
 }
 
 .review-text-area {

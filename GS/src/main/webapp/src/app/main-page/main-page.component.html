@@ -1,3 +1,8 @@
+<div class="example-button-container" *ngIf="testadmin1">
+  <button mat-mini-fab color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
 <ul>
   <div  *ngFor="let prod of products" class="product{{prod.id}}">
     <app-product-card [product]="prod"></app-product-card>
