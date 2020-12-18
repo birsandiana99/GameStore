@@ -47,7 +47,6 @@ export class ProductService {
 
   deleteProductFromWishlist(product: Product, userID: number): Observable<Response>
   {
-    console.log('deleteProdFromWishlist called');
     return this.http.post<Response>(this.productUrl + '/deleteWishlist', [product.id, userID]);
   }
 

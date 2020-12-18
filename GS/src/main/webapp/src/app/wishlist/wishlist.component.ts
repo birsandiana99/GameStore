@@ -4,6 +4,7 @@ import {ProductService} from '../shared/product.service';
 import {User} from '../shared/user.model';
 import {Product} from '../shared/product.model';
 import {MatTableDataSource} from '@angular/material/table';
+import {Cart} from "../shared/cart.model";
 
 
 @Component({
@@ -23,6 +24,7 @@ export class WishlistComponent implements OnInit {
 
   // dataSource = ELEMENT_DATA;
   expandedElement: Product[];
+  test: Product[] = [];
   /*products: Product[] = [
     new Product(1, 'name1', 'descr1', 1, new Uint8Array([10, 257])),
     new Product(2, 'name2', 'descr2', 1, new Uint8Array([10, 257])),
@@ -31,6 +33,7 @@ export class WishlistComponent implements OnInit {
     new Product(5, 'name5', 'descr5', 1, new Uint8Array([10, 257])),
     new Product(6, 'name6', 'descr6', 1, new Uint8Array([10, 257]))
   ];*/
+  cart: Cart;
   products: Product[];
   user: User;
   dataSource: MatTableDataSource<any>;
@@ -59,6 +62,19 @@ export class WishlistComponent implements OnInit {
     // this.dataSource = this.dataSource.filter(i => i !== elm);
     this.productService.deleteProductFromWishlist(elm, this.user.id).subscribe();
     this.refresh();
+  }
+
+  addToCart(elm){
+    this.user = JSON.parse(sessionStorage.getItem('user'));
+    if (this.test.indexOf(elm) > -1) {
+      console.log('E DEJA IN CART');
+    }
+    else{
+      this.cart = new Cart(0, this.user, elm);
+      this.productService.addProductToCart(this.cart).subscribe();
+    }
+    this.removeRow(elm);
+    this.test.push(elm);
   }
 
   refresh() {
