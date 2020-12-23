@@ -3,22 +3,10 @@
     <table mat-table
            [dataSource]="dataSource" multiTemplateDataRows
            class="mat-elevation-z8">
-      <!--  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">-->
-      <!--    <th mat-header-cell *matHeaderCellDef> {{column}} </th>-->
-      <!--    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>-->
-      <!--  </ng-container>-->
-
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name</th>
         <td mat-cell *matCellDef="let element" style="font-weight: bold;"> {{element.name}} </td>
       </ng-container>
-
-<!--      <ng-container matColumnDef="quantity">-->
-<!--        <th mat-header-cell *matHeaderCellDef> Quantity</th>-->
-<!--        <td mat-cell *matCellDef="let element">-->
-<!--          <input [defaultValue]="1" id="quantityid" type="number" step="1" matInput [formControl]="" min="1" max="99">-->
-<!--        </td>-->
-<!--      </ng-container>-->
 
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef> Price</th>
@@ -38,11 +26,9 @@
             <!--            </div>-->
             <div class="example-element-description">
               {{element.description}}
-              <!--              <span class="example-element-description-attribution"> &#45;&#45; Wikipedia </span>-->
-
             </div>
             <div class="btn-remove" style="position: center">
-              <button mat-raised-button color="warn" (click)="removeRow(element)" >Remove</button>
+              <button mat-raised-button color="warn" (click)="removeRow(element)">Remove</button>
             </div>
           </div>
         </td>
@@ -60,9 +46,9 @@
   <mat-card class="mat-card-checkout">
     <mat-card-title style="text-align: center">Subtotal</mat-card-title>
     <mat-card-content style="height: fit-content">
-<!--      Final price:-->
-      <label style="font-size: 18px">{{calculateTotal()}}$
-<!--        <input readonly style="border: none; width: 70px; font-size: 18px" [defaultValue]="">$-->
+      <!--      Final price:-->
+      <label style="font-size: 18px">
+        {{calculateTotal()}}$
       </label>
     </mat-card-content>
     <button mat-raised-button color="primary">Check out</button>

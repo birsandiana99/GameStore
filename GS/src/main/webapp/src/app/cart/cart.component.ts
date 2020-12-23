@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {ProductService} from '../shared/product.service';
 import {User} from '../shared/user.model';
@@ -27,8 +27,7 @@ export class CartComponent implements OnInit {
   columnsToDisplay = ['name', 'price'];
 
 
-  constructor(private productService: ProductService,
-              private changeDetectorRefs: ChangeDetectorRef) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('user'));

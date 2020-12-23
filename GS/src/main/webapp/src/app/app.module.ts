@@ -30,6 +30,7 @@ import {MatTableModule} from '@angular/material/table';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatListModule,
     MatTableModule,
     MatDialogModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatSnackBarModule
   ],
   providers: [AccountService, ProductService],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ import {Cart} from '../shared/cart.model';
 import {ProductService} from '../shared/product.service';
 import {Router} from '@angular/router';
 import {Wishlist} from "../shared/wishlist.model";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-product-card',
@@ -27,9 +28,9 @@ import {Wishlist} from "../shared/wishlist.model";
 export class ProductCardComponent implements OnInit {
 
   constructor(private productService: ProductService,
-              private route: Router) {
+              private route: Router,
+              private _snackBar: MatSnackBar) {
   }
-  // product: Product;
   user: User;
   test: Product[] = [];
   testW: Product[] = [];
@@ -46,39 +47,19 @@ export class ProductCardComponent implements OnInit {
   transitionButtonText = 'ADD TO CART';
 
   ngOnInit(): void {
-    // this.product = new Product(1, 'name1', 'descr1', 1, new Uint8Array([10, 257]));
+    this.user = JSON.parse(sessionStorage.getItem('user'));
   }
 
   goToDetails() {
-    // window.sessionStorage.setItem("prodID",<string><unknown>this.product.id)
     this.route.navigate(['/product-details', this.product.id]);
   }
 
-
   addToWishlist() {
-    this.user = JSON.parse(sessionStorage.getItem('user'));
-
-
-    console.log(this.product);
-    if (this.testW.indexOf(this.product) > -1)
-    {
-      console.log('e deja in cart');
-    }
-    else
-    {
-      this.wishlist = new Wishlist(0, this.user, this.product);
-      this.productService.addProdToWishlist(this.wishlist).subscribe();
-    }
-
+    this.wishlist = new Wishlist(0, this.user, this.product);
+    this.productService.addProdToWishlist(this.wishlist).subscribe();
     this.testW.push(this.product);
-
   }
 
-
-  /**
-   * Respond to the transition event of the button text
-   * by setting the text awaiting transition then setting the state as shown
-   */
   buttonTextTransitioned(event) {
     this.buttonText = this.transitionButtonText;
     this.buttonTextState = this.buttonTextState = 'shown';
@@ -89,17 +70,8 @@ export class ProductCardComponent implements OnInit {
     this.buttonTextState = 'transitioning';
     this.transitionButtonText = 'ADDING...';
 
-    this.user = JSON.parse(sessionStorage.getItem('user'));
-
-    console.log(this.test);
-    console.log(this.product);
-    console.log(this.test.indexOf(this.product));
-
     this.cart = new Cart(0, this.user, this.product);
     this.productService.addProductToCart(this.cart).subscribe();
-
-    // Do whatever logic here. If it is asynchronous, put the remaining code in your subscribe/then callbacks
-    // Note if your logic is snappy, you could leave the timeouts in to simulate the animation for a better UX
 
     setTimeout(() => {
       this.buttonTextState = 'transitioning';
@@ -113,5 +85,11 @@ export class ProductCardComponent implements OnInit {
     }, 3600);
 
     this.test.push(this.product);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
   }
 }
