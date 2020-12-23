@@ -1,7 +1,7 @@
 <mat-card class="example-card">
   <div class="example-flex-container">
     <div class="example-button-container" *ngIf="testadmin1">
-      <button mat-mini-fab color="primary">
+      <button mat-mini-fab color="primary" (click)="openDialog()">
         <mat-icon>edit</mat-icon>
       </button>
     </div>
@@ -14,32 +14,34 @@
   <mat-card-header>
     <mat-card-title> {{product.name}} </mat-card-title>
   </mat-card-header>
- <mat-card-content class = "content">
-   <img mat-card-image src="assets/test.png" class="product{{product.image}}-image product-card-image ">
-   <p>
-    {{product.description}}
-   </p>
-   <p class="product-price">
-     <b>{{product.price}}$</b>
-   </p>
-   <button mat-button (click)="onAddToCart()">Buy</button>
-   <button mat-button (click)="addToWishlist()">Wishlist</button>
+  <mat-card-content class="content">
+    <img mat-card-image src="assets/test.png" class="product{{product.image}}-image product-card-image ">
+    <p>
+      {{product.description}}
+    </p>
+    <p class="product-price">
+      <b>{{product.price}}$</b>
+    </p>
+    <button mat-button (click)="onAddToCart()">Buy</button>
+    <button mat-button (click)="addToWishlist()">Wishlist</button>
 
 
- </mat-card-content>
+  </mat-card-content>
   <mat-form-field class="add-review-form" appearance="fill">
     <mat-label>Leave a review</mat-label>
     <form action="/form/submit" method="GET">
-      <textarea class="textarea" rows="5" cols="60" name="text" placeholder="Add a review"></textarea>
+      <label>
+        <textarea matInput class="textarea" rows="5" cols="60" name="text" placeholder="Add a review"></textarea>
+      </label>
     </form>
   </mat-form-field>
   <button mat-button color="black">Add</button>
   <ul class="review_list_ul">
-    <div  *ngFor="let rev of reviews" class="review-div">
+    <div *ngFor="let rev of reviews" class="review-div">
       <label class="user-label"> USER X </label>
       <mat-card class="review-card">
         <mat-card-content class="review-card-content">
-         {{rev}}
+          {{rev}}
         </mat-card-content>
       </mat-card>
     </div>

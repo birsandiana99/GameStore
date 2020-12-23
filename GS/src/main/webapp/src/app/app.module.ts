@@ -13,7 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import {LoginComponent} from './login/login.component';
 import {SearchComponent} from './search/search.component';
 import { MenuComponent } from './menu/menu.component';
-import { MainPageComponent } from './main-page/main-page.component';
+import {AddDialogElements, MainPageComponent} from './main-page/main-page.component';
 import {AccountService} from './shared/account.service';
 import {HttpClientModule} from '@angular/common/http';
 import {MatSliderModule} from '@angular/material/slider';
@@ -22,13 +22,14 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ProductCardComponent } from './product-card/product-card.component';
 import {MatCardModule} from '@angular/material/card';
-import {ProductDetailsComponent} from './product-details/product-details.component';
+import {EditDialogElements, ProductDetailsComponent} from './product-details/product-details.component';
 import {MatListModule} from '@angular/material/list';
 import {ProductService} from './shared/product.service';
-import {Product} from './shared/product.model';
 import { CartComponent } from './cart/cart.component';
 import {MatTableModule} from '@angular/material/table';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     ProductCardComponent,
     ProductDetailsComponent,
     CartComponent,
-    WishlistComponent
+    WishlistComponent,
+    EditDialogElements,
+    AddDialogElements
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,8 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     MatCardModule,
     MatListModule,
     MatTableModule,
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [AccountService, ProductService],
   bootstrap: [AppComponent]

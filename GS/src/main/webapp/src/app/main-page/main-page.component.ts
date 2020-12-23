@@ -5,6 +5,8 @@ import {Product} from '../shared/product.model';
 import {ProductService} from '../shared/product.service';
 import {Observable} from 'rxjs';
 import {User} from "../shared/user.model";
+import {MatDialog} from "@angular/material/dialog";
+import {EditDialogElements} from "../product-details/product-details.component";
 
 // @NgModule({
 //   declarations: [
@@ -18,21 +20,11 @@ import {User} from "../shared/user.model";
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
-  /*products: Product[] = [
-    new Product(1, 'name1', 'descr1', 1, new Uint8Array([10, 257])),
-    new Product(2, 'name2', 'descr2', 1, new Uint8Array([10, 257])),
-    new Product(3, 'name3', 'descr3', 1, new Uint8Array([10, 257])),
-    new Product(4, 'name4', 'descr4', 1, new Uint8Array([10, 257])),
-    new Product(5, 'name5', 'descr5', 1, new Uint8Array([10, 257])),
-    new Product(6, 'name6', 'descr6', 1, new Uint8Array([10, 257])),
-    new Product(7, 'name7', 'desc7', 1, new Uint8Array([10, 257]))
-  ];*/
-  // products.foreach()
   products: Product[];
   user: User;
   testadmin1: boolean;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.testadmin();
     this.productService.getProducts().subscribe(data => {
@@ -47,4 +39,15 @@ export class MainPageComponent implements OnInit {
     else
       this.testadmin1 = this.user.isAdmin;
   }
+
+  openDialog() {
+    this.dialog.open(AddDialogElements);
+  }
 }
+
+@Component({
+  selector: 'app-main-page',
+  templateUrl: './dialog-elements.html',
+})
+
+export class AddDialogElements {}

@@ -1,10 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {Product} from '../shared/product.model';
 import { ProductService} from "../shared/product.service";
 import {ActivatedRoute, convertToParamMap, Router} from "@angular/router";
 import {Wishlist} from "../shared/wishlist.model";
 import {User} from "../shared/user.model";
 import {Cart} from "../shared/cart.model";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 
 
 @Component({
@@ -30,13 +31,13 @@ export class ProductDetailsComponent implements OnInit {
     "e76vm u8le6mvu sd6mevku7mlv6k u7v6emlku7v6 kl7u6eu76 ue6u7e6u6u 6eu6iu87 6ik78 ok8u kju7 kjiut ,i u "
   ];
 
-  constructor(private productService : ProductService,public route : ActivatedRoute) {
+  constructor(private productService : ProductService,public route : ActivatedRoute,
+              public dialog: MatDialog) {
 
   }
 
   ngOnInit(): void {
     this.testadmin();
-    //this.product = new Product(12,"nume","descriere",12,null)
     let idprod = this.route.snapshot.paramMap.get('id')
     this.route.params.subscribe(params => {
     let idprod = convertToParamMap(params).get('id');
@@ -88,4 +89,15 @@ export class ProductDetailsComponent implements OnInit {
 
     this.test.push(this.product);
   }
+
+  openDialog() {
+    this.dialog.open(EditDialogElements);
+  }
 }
+
+@Component({
+  selector: 'app-product-details',
+  templateUrl: './dialog-elements.html',
+})
+
+export class EditDialogElements {}
