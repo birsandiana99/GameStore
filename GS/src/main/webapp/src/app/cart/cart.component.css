@@ -68,6 +68,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 .mat-card-checkout {
   flex-basis: 20%;
   text-align: center;
+  max-height: 120px;
+  padding-top: 40px;
 }
 
 .mat-card-checkout > button {

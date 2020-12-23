@@ -61,8 +61,8 @@
     <mat-card-title style="text-align: center">Subtotal</mat-card-title>
     <mat-card-content style="height: fit-content">
 <!--      Final price:-->
-      <label>
-        <input readonly style="border: none; width: 70px; font-size: 18px">
+      <label style="font-size: 18px">{{calculateTotal()}}$
+<!--        <input readonly style="border: none; width: 70px; font-size: 18px" [defaultValue]="">$-->
       </label>
     </mat-card-content>
     <button mat-raised-button color="primary">Check out</button>

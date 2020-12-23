@@ -41,6 +41,7 @@ export class CartComponent implements OnInit {
     // @ts-ignore
     this.dataSource = new MatTableDataSource(this.productService.getCartProductsForUser(this.user)
       .subscribe(products => this.dataSource.data = products));
+    this.productService.getCartProductsForUser(this.user).subscribe(prod => this.lista = prod);
     // this.productService.getCartProductsForUser(JSON.parse(sessionStorage.getItem('user')))
     //   .subscribe(products => this.expandedElement = products)
   }
@@ -53,6 +54,10 @@ export class CartComponent implements OnInit {
 
   refresh() {
     this.productService.getCartProductsForUser(this.user).subscribe(products => this.dataSource.data = products);
+  }
+
+  calculateTotal() {
+    return this.lista.reduce((acumm, curr) => acumm + curr.price, 0);
   }
 }
 
