@@ -82,6 +82,12 @@ public class ProductServiceImpl implements ProductService {
                 .map(BaseEntity::getId)
                 .collect(Collectors.toList());
         wishlistIDs.forEach(id -> wishlistRepository.deleteById(id));
+
+        List<Long> reviewIDs = reviewRepository.findAll().stream()
+                .filter(review -> review.getProduct_id().getId().equals(productID))
+                .map(BaseEntity::getId)
+                .collect(Collectors.toList());
+        reviewIDs.forEach(id -> reviewRepository.deleteById(id));
         productRepository.deleteById(productID);
     }
 
