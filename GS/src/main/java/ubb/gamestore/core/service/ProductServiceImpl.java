@@ -4,12 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ubb.gamestore.core.domain.Cart;
-import ubb.gamestore.core.domain.GSUser;
-import ubb.gamestore.core.domain.Product;
-import ubb.gamestore.core.domain.Wishlist;
+import ubb.gamestore.core.domain.*;
 import ubb.gamestore.core.repository.CartRepository;
 import ubb.gamestore.core.repository.ProductRepository;
+import ubb.gamestore.core.repository.ReviewRepository;
 import ubb.gamestore.core.repository.WishlistRepository;
 
 import java.util.List;
@@ -29,11 +27,86 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private WishlistRepository wishlistRepository;
 
+    @Autowired
+    private ReviewRepository reviewRepository;
+
     @Override
     public List<Product> getProducts() {
         List<Product> products = productRepository.findAll();
         logger.trace("In ProductService - getProducts -> method entered, products = {}", products);
         return products;
+    }
+
+    @Override
+    public List<Review> getReviewsForProduct(Long productID) {
+        List<Review> reviews = reviewRepository.findAll().stream()
+                .filter(review -> review.getProduct_id().getId().equals(productID))
+                .collect(Collectors.toList());
+
+        logger.trace("In ProductService - getReviewsForProduct -> method entered, reviews = {}", reviews);
+        return reviews;
+    }
+
+    @Override
+    public Product addProduct(Product product) {
+        logger.trace("addProduct - ProductService -> method entered, Product = {}", product);
+        Product addedProduct = productRepository.save(product);
+        logger.trace("addProduct - ProductService -> method finished, Product = {}", addedProduct);
+        return addedProduct;
+    }
+
+    @Override
+    public void updateProduct(Product updatedProduct) {
+        logger.trace("updateProduct - ProductService -> method entered, Product = {}", updatedProduct);
+        productRepository.findAll().forEach(product -> {
+            if(product.getId().equals(updatedProduct.getId())){
+                product.setDescription(updatedProduct.getDescription());
+                product.setImage(updatedProduct.getImage());
+                product.setName(updatedProduct.getName());
+                product.setPrice(updatedProduct.getPrice());
+            }
+        });
+    }
+
+    @Override
+    public void deleteProduct(Long productID) {
+        logger.trace("deleteProduct - ProductService -> method entered, ProductID = {}", productID);
+        List<Long> cartIDs = cartRepository.findAll().stream()
+                .filter(cart -> cart.getProduct().getId().equals(productID))
+                .map(BaseEntity::getId)
+                .collect(Collectors.toList());
+        cartIDs.forEach(id -> cartRepository.deleteById(id));
+
+        List<Long> wishlistIDs = wishlistRepository.findAll().stream()
+                .filter(wishlist -> wishlist.getProduct().getId().equals(productID))
+                .map(BaseEntity::getId)
+                .collect(Collectors.toList());
+        wishlistIDs.forEach(id -> wishlistRepository.deleteById(id));
+        productRepository.deleteById(productID);
+    }
+
+    @Override
+    public Review addReview(Review review) {
+        logger.trace("addReview - ProductService -> method entered, Review = {}", review);
+        Review addedReview = reviewRepository.save(review);
+        logger.trace("addReview - ProductService -> method finished, Review = {}", addedReview);
+        return addedReview;
+    }
+
+    @Override
+    public void updateReview(Review updatedReview) {
+        logger.trace("updateReview - ProductService -> method entered, Review = {}", updatedReview);
+        reviewRepository.findAll().forEach(review -> {
+            if(review.getId().equals(updatedReview.getId())){
+                review.setText(updatedReview.getText());
+            }
+        });
+    }
+
+    @Override
+    public void deleteReview(Long reviewID) {
+        logger.trace("deleteReview - ProductService -> method entered, ReviewID = {}", reviewID);
+        reviewRepository.deleteById(reviewID);
     }
 
     @Override

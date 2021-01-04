@@ -1,15 +1,26 @@
 package ubb.gamestore.core.service;
 
-import ubb.gamestore.core.domain.Cart;
-import ubb.gamestore.core.domain.GSUser;
-import ubb.gamestore.core.domain.Product;
-import ubb.gamestore.core.domain.Wishlist;
+import ubb.gamestore.core.domain.*;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
     List<Product> getProducts();
+
+    List<Review> getReviewsForProduct(Long productID);
+
+    Product addProduct(Product product);
+
+    void updateProduct(Product updatedProduct);
+
+    void deleteProduct(Long productID);
+
+    Review addReview(Review review);
+
+    void updateReview(Review updatedReview);
+
+    void deleteReview(Long reviewID);
 
     Optional<Product> getProductByName(String name);
 

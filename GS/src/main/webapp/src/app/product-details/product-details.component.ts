@@ -32,7 +32,7 @@ export class ProductDetailsComponent implements OnInit {
   ];
 
   constructor(private productService : ProductService,public route : ActivatedRoute,
-              public dialog: MatDialog) {
+              public dialog: MatDialog, private router: Router,) {
 
   }
 
@@ -93,6 +93,12 @@ export class ProductDetailsComponent implements OnInit {
   openDialog() {
     this.dialog.open(EditDialogElements);
   }
+
+  deleteProduct(){
+    this.productService.deleteProduct(this.product.id).subscribe()
+    this.router.navigate(['/main-page']);
+  }
+
 }
 
 @Component({

@@ -9,16 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ubb.gamestore.core.domain.Cart;
 import ubb.gamestore.core.domain.Product;
+import ubb.gamestore.core.domain.Review;
 import ubb.gamestore.core.domain.Wishlist;
 import ubb.gamestore.core.service.ProductService;
-import ubb.gamestore.web.converter.CartConverter;
-import ubb.gamestore.web.converter.ProductConverter;
-import ubb.gamestore.web.converter.UserConverter;
-import ubb.gamestore.web.converter.WishlistConverter;
-import ubb.gamestore.web.dto.CartDTO;
-import ubb.gamestore.web.dto.ProductDTO;
-import ubb.gamestore.web.dto.UserDTO;
-import ubb.gamestore.web.dto.WishlistDTO;
+import ubb.gamestore.web.converter.*;
+import ubb.gamestore.web.dto.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +33,8 @@ public class ProductController {
     private CartConverter cartConverter;
     @Autowired
     private WishlistConverter wishlistConverter;
+    @Autowired
+    private ReviewConverter reviewConverter;
 
     @RequestMapping(value = "/getProducts", method = RequestMethod.GET)
     public List<ProductDTO> getProducts() {
@@ -77,9 +74,26 @@ public class ProductController {
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
     public ProductDTO addProduct(@RequestBody ProductDTO productDTO){
         logger.trace("addProduct - ProductController -> method entered, productDTO = {}", productDTO);
-        //todo
-        return productDTO;
+        Product addedProduct = productService.addProduct(productConverter.convertDtoToModel(productDTO));
+        ProductDTO addedProductDTO = productConverter.convertModelToDto(addedProduct);
+        logger.trace("addProduct - ProductController -> method entered, addedProductDTO = {}", addedProductDTO);
+        return addedProductDTO;
     }
+
+    @RequestMapping(value = "/updateProduct", method = RequestMethod.POST)
+    public ResponseEntity<?> updateProduct(@RequestBody ProductDTO productDTO){
+        logger.trace("updateProduct - ProductController -> method entered, productDTO = {}", productDTO);
+        productService.updateProduct(productConverter.convertDtoToModel(productDTO));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/deleteProduct/{productID}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteProduct(@PathVariable Long productID){
+        logger.trace("deleteProduct - ProductController -> method entered, productID = {}", productID);
+        productService.deleteProduct(productID);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
     @RequestMapping(value = "/getCartProductsForUser", method = RequestMethod.POST)
     public List<ProductDTO> getCartProductsForUser(@RequestBody UserDTO userDTO){
@@ -124,6 +138,37 @@ public class ProductController {
         logger.trace("deleteWishlist - ProductController -> method entered, productID = {}, userID = {}", productID, userID);
         productService.deleteWishlist(productID, userID);
         logger.trace("deleteWishlist - ProductController -> method finished");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/getReviewsForProductID", params = "ID", method = RequestMethod.GET)
+    public List<ReviewDTO> getReviewsForProductID(@RequestParam Long ID) {
+        logger.trace("getReviewsForProductID - ProductController -> method entered, ID = {}", ID);
+        List<Review> reviews = productService.getReviewsForProduct(ID);
+        logger.trace("getReviewsForProductID - ProductController -> method finished, reviews = {}", reviews);
+        return reviewConverter.convertModelsToDtos(reviews);
+    }
+
+    @RequestMapping(value = "/addReview", method = RequestMethod.POST)
+    public ReviewDTO addReview(@RequestBody ReviewDTO reviewDTO){
+        logger.trace("addReview - ProductController -> method entered, reviewDTO = {}", reviewDTO);
+        Review addedReview = productService.addReview(reviewConverter.convertDtoToModel(reviewDTO));
+        ReviewDTO addedReviewDTO = reviewConverter.convertModelToDto(addedReview);
+        logger.trace("addReview - ProductController -> method entered, addedReviewDTO = {}", addedReviewDTO);
+        return addedReviewDTO;
+    }
+
+    @RequestMapping(value = "/updateReview", method = RequestMethod.POST)
+    public ResponseEntity<?> updateReview(@RequestBody ReviewDTO reviewDTO){
+        logger.trace("updateReview - ProductController -> method entered, reviewDTO = {}", reviewDTO);
+        productService.updateReview(reviewConverter.convertDtoToModel(reviewDTO));
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/deleteReview/{reviewID}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteReview(@PathVariable Long reviewID){
+        logger.trace("deleteReview - ProductController -> method entered, reviewID = {}", reviewID);
+        productService.deleteReview(reviewID);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
