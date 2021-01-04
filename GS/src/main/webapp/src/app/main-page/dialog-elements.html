@@ -2,7 +2,7 @@
 <div mat-dialog-content style="width: 400px">
   <mat-form-field appearance="fill">
     <mat-label>Name</mat-label>
-    <input matInput>
+    <input matInput [(ngModel)]="name">
   </mat-form-field>
   <br>
   <mat-form-field appearance="fill" style="width: 400px">
@@ -10,18 +10,18 @@
     <!--    <input matInput>-->
     <form action="/form/submit" method="GET">
       <label>
-        <textarea matInput class="textarea" rows="5" cols="60" name="text" placeholder="Add a description"></textarea>
+        <textarea matInput [(ngModel)]="description" class="textarea" rows="5" cols="60" name="text" placeholder="Add a description"></textarea>
       </label>
     </form>
   </mat-form-field>
   <br>
   <mat-form-field appearance="fill">
     <mat-label>Price</mat-label>
-    <input matInput type="number">
+    <input matInput type="number" [(ngModel)]="price">
   </mat-form-field>
   <br>
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
-  <button mat-button>Submit</button>
+  <button (click)="onAdd()" mat-button mat-dialog-close>Submit</button>
 </div>

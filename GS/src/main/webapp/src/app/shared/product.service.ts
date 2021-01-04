@@ -65,6 +65,7 @@ export class ProductService {
   }
 
   addReview(review: Review): Observable<Review>{
+    console.log(review);
     return this.http.post<Review>(this.productUrl + '/addReview', review);
   }
 

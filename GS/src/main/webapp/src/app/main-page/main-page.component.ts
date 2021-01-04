@@ -40,6 +40,7 @@ export class MainPageComponent implements OnInit {
       this.testadmin1 = this.user.isAdmin;
   }
 
+
   openDialog() {
     this.dialog.open(AddDialogElements);
   }
@@ -50,4 +51,14 @@ export class MainPageComponent implements OnInit {
   templateUrl: './dialog-elements.html',
 })
 
-export class AddDialogElements {}
+export class AddDialogElements {
+  name: string;
+  description:string;
+  price:number;
+
+  constructor(private productService: ProductService) { }
+  onAdd(){
+    this.productService.addProduct(new Product(0, this.name, this.description, this.price, null)).subscribe();
+
+  }
+}

@@ -11,15 +11,15 @@
       </button>
     </div>
   </div>
-  <mat-card-header>
+  <mat-card-header *ngIf="product">
     <mat-card-title> {{product.name}} </mat-card-title>
   </mat-card-header>
-  <mat-card-content class="content">
+  <mat-card-content class="content" *ngIf="product">
     <img mat-card-image src="assets/test.png" class="product{{product.image}}-image product-card-image ">
-    <p>
+    <p *ngIf="product">
       {{product.description}}
     </p>
-    <p class="product-price">
+    <p class="product-price" *ngIf="product">
       <b>{{product.price}}$</b>
     </p>
     <button mat-button (click)="onAddToCart()">Buy</button>
@@ -31,18 +31,23 @@
     <mat-label>Leave a review</mat-label>
     <form action="/form/submit" method="GET">
       <label>
-        <textarea matInput class="textarea" rows="5" cols="60" name="text" placeholder="Add a review"></textarea>
+        <textarea matInput [(ngModel)]="review" class="textarea" rows="5" cols="60" name="text" placeholder="Add a review"></textarea>
       </label>
     </form>
   </mat-form-field>
-  <button mat-button color="black">Add</button>
+  <button mat-button (click)="addComment()" color="black">Add</button>
+
   <ul class="review_list_ul">
     <div *ngFor="let rev of reviews" class="review-div">
-      <label class="user-label"> USER X </label>
+      <label class="user-label"> USER {{rev.user.name}}</label>
       <mat-card class="review-card">
         <mat-card-content class="review-card-content">
-          {{rev}}
+          {{rev.text}}
+
         </mat-card-content>
+        <button mat-button *ngIf="rev.user.id == user.id" (click)="deleteComment(rev)">
+          Delete
+        </button>
       </mat-card>
     </div>
   </ul>

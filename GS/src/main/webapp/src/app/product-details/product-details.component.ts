@@ -5,7 +5,9 @@ import {ActivatedRoute, convertToParamMap, Router} from "@angular/router";
 import {Wishlist} from "../shared/wishlist.model";
 import {User} from "../shared/user.model";
 import {Cart} from "../shared/cart.model";
-import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material/dialog";
+import {Review} from "../shared/review.model";
+import {FormControl, Validators} from "@angular/forms";
 
 
 @Component({
@@ -23,13 +25,16 @@ export class ProductDetailsComponent implements OnInit {
   public product:Product;
   wishlist: Wishlist;
   cart: Cart;
+  review: string;
 
-  reviews: String[] = [
-    "review1", "review1", "review1", "review1", "review1", "review1", "review1", "reviewyjmneumkjukiukiu7ki7 ik97ki97ki7eki7wk i7kmicfe 7lsikcf87mvikmz7xmvi8mv768ivm7adkv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e76vm u8le6mvureviewyjmneumkjukiukiu7ki7 ik97ki97ki7eki7wk i7kmicfe 7lsik pizda ma sii cf87mv ikmz 7xmvi 8mv7 68iv" +
-    "m7adkv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8v kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd ekv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd ekv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e v kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd ed " +
-    "kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e" +
-    "e76vm u8le6mvu sd6mevku7mlv6k u7v6emlku7v6 kl7u6eu76 ue6u7e6u6u 6eu6iu87 6ik78 ok8u kju7 kjiut ,i u "
-  ];
+  // reviews: String[] = [
+  //   "review1", "review1", "review1", "review1", "review1", "review1", "review1", "reviewyjmneumkjukiukiu7ki7 ik97ki97ki7eki7wk i7kmicfe 7lsikcf87mvikmz7xmvi8mv768ivm7adkv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e76vm u8le6mvureviewyjmneumkjukiukiu7ki7 ik97ki97ki7eki7wk i7kmicfe 7lsik pizda ma sii cf87mv ikmz 7xmvi 8mv7 68iv" +
+  //   "m7adkv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8v kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd ekv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd ekv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e v kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd ed " +
+  //   "kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e kv8ivm76 ku8v 6eku8 zjm7v6ku je8 v76dku8vd e" +
+  //   "e76vm u8le6mvu sd6mevku7mlv6k u7v6emlku7v6 kl7u6eu76 ue6u7e6u6u 6eu6iu87 6ik78 ok8u kju7 kjiut ,i u "
+  // ];
+
+  reviews: Review[];
 
   constructor(private productService : ProductService,public route : ActivatedRoute,
               public dialog: MatDialog, private router: Router,) {
@@ -45,6 +50,10 @@ export class ProductDetailsComponent implements OnInit {
     this.productService.getProductByID(idprod).subscribe(data => {
       this.product = data;
     });
+
+    this.productService.getReviewsForProductID(idprod).subscribe(data => {
+      this.reviews = data;
+    })
   }
 
   testadmin() {
@@ -56,8 +65,18 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addComment() {
-
+    console.log("add review");
+    var newReview = new Review(0, this.user, this.product, this.review)
+    this.productService.addReview(newReview).subscribe();
+    this.review = '';
+    this.reviews.push(newReview)
+    this.ngOnInit();
   }
+
+  deleteComment(review: Review){
+    this.productService.deleteReview(review.id).subscribe();
+    this.ngOnInit();
+}
 
   addToWishlist() {
     this.user = JSON.parse(sessionStorage.getItem('user'));
@@ -91,7 +110,14 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialog.open(EditDialogElements);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      name: this.product.name,
+      description: this.product.description,
+      price: this.product.price,
+      id: this.product.id
+    }
+    this.dialog.open(EditDialogElements, dialogConfig);
   }
 
   deleteProduct(){
@@ -106,4 +132,24 @@ export class ProductDetailsComponent implements OnInit {
   templateUrl: './dialog-elements.html',
 })
 
-export class EditDialogElements {}
+export class EditDialogElements {
+
+  name: string;
+  description:string;
+  price:number;
+  id:number;
+
+  constructor(private productService: ProductService,
+    @Inject(MAT_DIALOG_DATA) data) {
+
+    this.description = data.description;
+    this.name  = data.name;
+    this.price = data.price;
+    this.id = data.id;
+  }
+  onUpdate(){
+    this.productService.updateProduct(new Product(this.id, this.name, this.description, this.price, null)).subscribe();
+
+  }
+
+}

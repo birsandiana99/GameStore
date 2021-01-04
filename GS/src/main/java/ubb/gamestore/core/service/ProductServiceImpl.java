@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ubb.gamestore.core.domain.*;
 import ubb.gamestore.core.repository.CartRepository;
 import ubb.gamestore.core.repository.ProductRepository;
@@ -40,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Review> getReviewsForProduct(Long productID) {
         List<Review> reviews = reviewRepository.findAll().stream()
-                .filter(review -> review.getProduct_id().getId().equals(productID))
+                .filter(review -> review.getProduct().getId().equals(productID))
                 .collect(Collectors.toList());
 
         logger.trace("In ProductService - getReviewsForProduct -> method entered, reviews = {}", reviews);
@@ -56,16 +57,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void updateProduct(Product updatedProduct) {
         logger.trace("updateProduct - ProductService -> method entered, Product = {}", updatedProduct);
-        productRepository.findAll().forEach(product -> {
-            if(product.getId().equals(updatedProduct.getId())){
-                product.setDescription(updatedProduct.getDescription());
-                product.setImage(updatedProduct.getImage());
-                product.setName(updatedProduct.getName());
-                product.setPrice(updatedProduct.getPrice());
-            }
-        });
+        logger.trace("updateProduct - ProductService -> method entered, id = {}", updatedProduct.getId());
+        Optional<Product> optionalProduct = productRepository.findById(updatedProduct.getId());
+        if(optionalProduct.isEmpty())
+            return;
+        Product product = optionalProduct.get();
+        product.setDescription(updatedProduct.getDescription());
+        product.setImage(updatedProduct.getImage());
+        product.setName(updatedProduct.getName());
+        product.setPrice(updatedProduct.getPrice());
+
+        logger.trace("updateProduct - ProductService -> method entered, updatedProduct = {}", product);
+
     }
 
     @Override
@@ -84,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
         wishlistIDs.forEach(id -> wishlistRepository.deleteById(id));
 
         List<Long> reviewIDs = reviewRepository.findAll().stream()
-                .filter(review -> review.getProduct_id().getId().equals(productID))
+                .filter(review -> review.getProduct().getId().equals(productID))
                 .map(BaseEntity::getId)
                 .collect(Collectors.toList());
         reviewIDs.forEach(id -> reviewRepository.deleteById(id));
@@ -100,6 +106,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Transactional
     public void updateReview(Review updatedReview) {
         logger.trace("updateReview - ProductService -> method entered, Review = {}", updatedReview);
         reviewRepository.findAll().forEach(review -> {
