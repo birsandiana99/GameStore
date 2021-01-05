@@ -151,9 +151,18 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Cart addToCart(Cart cart) {
         logger.trace("addToCart - ProductService -> method entered, Cart = {}", cart);
-        Cart addedCart = cartRepository.save(cart);
-        logger.trace("addToCart - ProductService -> method finished, Cart = {}", cart);
-        return addedCart;
+        Optional<Cart> optionalCart = cartRepository.findAll().stream()
+                .filter(cart1 -> cart1.getProduct().getId().equals(cart.getProduct().getId()) && cart1.getUser().getId().equals(cart.getUser().getId()))
+                .findAny();
+        if(optionalCart.isEmpty()) {
+            Cart addedCart = cartRepository.save(cart);
+            logger.trace("addToCart - ProductService -> method finished, Cart = {}", cart);
+            return addedCart;
+        }
+        else {
+            logger.trace("addToCart - ProductService -> method finished, already in cart");
+            return new Cart(null, null);
+        }
     }
 
     @Override
@@ -181,9 +190,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Wishlist addToWishlist(Wishlist wishlist) {
         logger.trace("addToWishlist - ProductService -> method entered, Wishlist = {}", wishlist);
-        Wishlist addedWishlist = wishlistRepository.save(wishlist);
-        logger.trace("addToWishlist - ProductService -> method finished, Wishlist = {}", wishlist);
-        return addedWishlist;
+        Optional<Wishlist> optionalWishlist =
+                wishlistRepository.findAll().stream()
+                .filter(wishlist1 -> wishlist1.getProduct().getId().equals(wishlist.getProduct().getId()) && wishlist1.getUser().getId().equals(wishlist.getUser().getId()))
+                .findAny();
+        if(optionalWishlist.isEmpty()) {
+            Wishlist addedWishlist = wishlistRepository.save(wishlist);
+            logger.trace("addToWishlist - ProductService -> method finished, Wishlist = {}", wishlist);
+            return addedWishlist;
+        }
+        else {
+            logger.trace("addToWishlist - ProductService -> method finished, already in wishlist");
+            return new Wishlist(null, null);
+        }
     }
 
     @Override
