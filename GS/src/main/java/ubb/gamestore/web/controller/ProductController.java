@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ubb.gamestore.core.domain.Cart;
 import ubb.gamestore.core.domain.Product;
 import ubb.gamestore.core.domain.Review;
@@ -15,6 +16,8 @@ import ubb.gamestore.core.service.ProductService;
 import ubb.gamestore.web.converter.*;
 import ubb.gamestore.web.dto.*;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +75,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
-    public ProductDTO addProduct(@RequestBody ProductDTO productDTO){
+    public ProductDTO addProduct(@RequestBody ProductDTO productDTO) {
         logger.trace("addProduct - ProductController -> method entered, productDTO = {}", productDTO);
         Product addedProduct = productService.addProduct(productConverter.convertDtoToModel(productDTO));
         ProductDTO addedProductDTO = productConverter.convertModelToDto(addedProduct);

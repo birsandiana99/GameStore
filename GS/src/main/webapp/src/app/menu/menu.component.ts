@@ -6,6 +6,7 @@ import {Observable, of} from 'rxjs';
 import {filter, map, startWith} from 'rxjs/operators';
 import {Product} from '../shared/product.model';
 import {ProductService} from '../shared/product.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-menu',
@@ -17,7 +18,8 @@ export class MenuComponent implements OnInit {
   products: Product[] = [];
   filteredOptions: Observable<Product[]>;
   user: User;
-  constructor(private accountService: AccountService, private productService: ProductService) {
+  constructor(private accountService: AccountService, private productService: ProductService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -36,6 +38,10 @@ export class MenuComponent implements OnInit {
   private _filter(value: string): Product[]{
     const filterValue = value.toLowerCase();
     return this.products.filter(product => product.name.toLowerCase().includes(filterValue));
+  }
+
+  goToDetails(productID: number) {
+    this.router.navigate(['/product-details', productID]);
   }
 
   logout() {

@@ -8,6 +8,7 @@ import {User} from "../shared/user.model";
 import {MatDialog} from "@angular/material/dialog";
 import {EditDialogElements} from "../product-details/product-details.component";
 
+
 // @NgModule({
 //   declarations: [
 //     ProductCardComponent
@@ -59,6 +60,6 @@ export class AddDialogElements {
   constructor(private productService: ProductService) { }
   onAdd(){
     this.productService.addProduct(new Product(0, this.name, this.description, this.price, null)).subscribe();
-
   }
+
 }
