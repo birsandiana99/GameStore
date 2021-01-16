@@ -8,6 +8,7 @@ import {Cart} from "../shared/cart.model";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material/dialog";
 import {Review} from "../shared/review.model";
 import {FormControl, Validators} from "@angular/forms";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -37,7 +38,8 @@ export class ProductDetailsComponent implements OnInit {
   reviews: Review[];
 
   constructor(private productService : ProductService,public route : ActivatedRoute,
-              public dialog: MatDialog, private router: Router,) {
+              public dialog: MatDialog, private router: Router,
+              private _snackBar: MatSnackBar) {
 
   }
 
@@ -71,11 +73,13 @@ export class ProductDetailsComponent implements OnInit {
     this.review = '';
     this.reviews.push(newReview)
     this.ngOnInit();
+    window.location.reload();
   }
 
   deleteComment(review: Review){
     this.productService.deleteReview(review.id).subscribe();
     this.ngOnInit();
+    window.location.reload();
 }
 
   addToWishlist() {
@@ -125,6 +129,12 @@ export class ProductDetailsComponent implements OnInit {
     this.router.navigate(['/main-page']);
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
 }
 
 @Component({
@@ -149,7 +159,7 @@ export class EditDialogElements {
   }
   onUpdate(){
     this.productService.updateProduct(new Product(this.id, this.name, this.description, this.price, null)).subscribe();
-
+    window.location.reload();
   }
 
 }

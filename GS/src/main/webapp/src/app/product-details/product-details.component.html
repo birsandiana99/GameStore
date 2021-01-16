@@ -22,8 +22,8 @@
     <p class="product-price" *ngIf="product">
       <b>{{product.price}}$</b>
     </p>
-    <button mat-button (click)="onAddToCart()">Buy</button>
-    <button mat-button (click)="addToWishlist()">Wishlist</button>
+    <button mat-button (click)="onAddToCart();openSnackBar('Added to Cart','Close')">Buy</button>
+    <button mat-button (click)="addToWishlist(); openSnackBar('Added to Wishlist','Close')">Wishlist</button>
 
 
   </mat-card-content>
